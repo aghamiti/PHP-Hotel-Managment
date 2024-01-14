@@ -80,6 +80,7 @@ body{
     border-top: 1px solid #a3a3a3 ;
     border-bottom: 1px solid #a3a3a3;
     font-family: "Poppins";
+    
 }
 
 .navbar img{
@@ -89,11 +90,14 @@ body{
 .navbar ul{
     display: flex;
     width: 80%;
-    margin: 20px 0;
+    margin: 30px 0;
     padding: 0;
     justify-content: center;
     align-items: center;
     list-style: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
 .navbar ul li{
@@ -388,6 +392,9 @@ footer a:hover{
     padding: 1vw;
     margin: 0.5vw;
     border: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 .footer-newsletter-subscribebtn{
     padding: 10px;
@@ -398,6 +405,9 @@ footer a:hover{
     transition: transform 0.05s ease, background-color 0.5s ease;
     margin: 5px;
     border-radius: 5px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 
 }
 .footer-location-icon,.footer-call-icon{
