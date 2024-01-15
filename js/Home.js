@@ -115,11 +115,15 @@ document.getElementById("myForm").addEventListener("submit", (e) => {
 
     let formDataJSON = JSON.stringify(formData);
 
-
+    localStorage.setItem('bookingData', formDataJSON);
 
     console.log("Booking Data:", formData);
     console.log("Booking Data(JSON):", formDataJSON);
+
+    
   });
+
+
 
 
 // -------------------------- Butoni qe ridirekton tek booking form --------------------------
