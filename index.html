@@ -151,17 +151,16 @@
             <div class="booking-form">
                 <h1 style="font-size: 30px; margin-top: 10px;">Book a Room</h1>
 
-                <form method="get" style="display: flex; flex-direction: column;">
-
+                <form style="display: flex; flex-direction: column;" id="myForm">
                     <label class="text-uppercase" for="Full-Name">Your Full Name</label>
                     <input type="text" name="Full-Name" class="form-input" placeholder="Your Full Name..." required="true">
-                    
+                
                     <label class="text-uppercase" for="Check-In">Arrival</label>
                     <input id="checkInDate" type="date" name="Check-In" class="form-input" placeholder="Check-In Date..." required="true" onchange="validateDates()">
-
+                
                     <label class="text-uppercase" for="Check-Out">Departure</label>
                     <input id="checkOutDate" type="date" class="form-input" name="Check-Out" placeholder="Check-Out Date..." required="true" onchange="validateDates()">
-
+                
                     <label class="text-uppercase" for="Adults">Adults</label>
                     <select name="Adults" required="true" class="form-input" id="adultsSelect" onchange="validateAdults()">
                         <option value="0">0</option>
@@ -170,7 +169,7 @@
                         <option value="3">3</option>
                         <option value="4">4</option>
                     </select>
-
+                
                     <label class="text-uppercase" for="Children">Children</label>
                     <select name="Children" class="form-input" id="childrenSelect">
                         <option value="0">0</option>
@@ -178,7 +177,7 @@
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
-
+                
                     <button id="formBtn" class="btn btn-primary" type="submit">Check Availability</button>
                 </form>
             </div>

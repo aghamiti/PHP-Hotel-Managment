@@ -155,7 +155,7 @@
 .form input[type=text]{
     width: 40%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 10px 0;
     height: 55px;
     color: #000;
     border: none;
@@ -166,7 +166,7 @@
     width: 40%;
     height: 55px;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 10px 0;
     color: #000;
     border: none;
     box-sizing: border-box;
@@ -175,6 +175,7 @@
 textarea {
     width: 80.5%;
     height: 150px;
+    margin: 0;
     padding: 12px 20px;
     box-sizing: border-box;
     border: none;
@@ -213,7 +214,7 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin: 10px 0;
 }
 .elemets{
     padding-top: 25px;

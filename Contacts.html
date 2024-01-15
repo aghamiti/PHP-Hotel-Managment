@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/Contacts.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    <script defer src="./js/Contact.js"></script>
 </head>
 <body>
 
@@ -47,9 +47,10 @@
     </p>
 
     <form id="censorForm" action="">
-        <input type="text" id="name" placeholder="Your name">
-        <input type="tel" name="numbers" id="phone" placeholder="Phone"><br>
-        <textarea name="comment" id="textarea" cols="30" rows="10" placeholder="Your message"></textarea><br>
+        <input type="text" id="name" name="Name" placeholder="Your full name">
+        <input type="tel" name="numbers" id="phone" placeholder="Phone">
+        <textarea name="comment" id="textarea" cols="30" rows="10" placeholder="Your message"></textarea>
+    
         <div class="form-email-send">
             <input type="email" name="mail" id="email" placeholder="E-mail">
             <input type="submit" value="Send" class="send-msg-button">

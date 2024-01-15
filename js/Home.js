@@ -92,6 +92,35 @@ const validateAdults = () => {
     }
 };
 
+// -------------------------- Marrja e te dhenave nga forma per rezervim --------------------------
+
+document.getElementById("myForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Marrim te dhenat nga forma
+    let fullName = document.querySelector('input[name="Full-Name"]').value;
+    let checkInDate = document.querySelector('input[name="Check-In"]').value;
+    let checkOutDate = document.querySelector('input[name="Check-Out"]').value;
+    let adults = document.querySelector('select[name="Adults"]').value;
+    let children = document.querySelector('select[name="Children"]').value;
+
+    // Krijimi i objektit me te dhenat e formes
+    const formData = {
+      fullName: fullName,
+      checkInDate: checkInDate,
+      checkOutDate: checkOutDate,
+      adults: adults,
+      children: children
+    };
+
+    let formDataJSON = JSON.stringify(formData);
+
+
+
+    console.log("Booking Data:", formData);
+    console.log("Booking Data(JSON):", formDataJSON);
+  });
+
 
 // -------------------------- Butoni qe ridirekton tek booking form --------------------------
 const scrollToElement = () => {
