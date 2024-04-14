@@ -20,7 +20,7 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/ClientSide/Home.css">
+    <link rel="stylesheet" href="../css/ClientSide/Home.css ">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">

@@ -8,27 +8,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
     <title>Spring Hotel | Admin | Calendar</title>
-    <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="css/AdminDashStyle/Calendar.css">
+    <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../css/AdminDash/Calendar.css">
 </head>
 <body>
     <div class="logoja">
-        <a href="./index.html"><img src="assets/images/Logo.png" alt="Logo" /></a>
+        <a href="../ClientSide/index.php"><img src="../assets/images/Logo.png" alt="Logo" /></a>
     </div>
 
     <nav class="navbar">
         <div></div>
         <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./About-Us.html">About Us</a></li>
-            <li><a href="./Contacts.html">Contacts</a></li>
-            <li><a href="./FAQ.html">FAQ</a></li>
-            <li><a href="./Events.html">Events</a></li>
+            <li><a href="./Calendar.php">Calendar</a></li>
+            <li><a href="./Messages.php">Inbox</a></li>
+            <li><a href="./Reservations.php">Reservations</a></li>
         </ul>
-        <a href="login-signup.html">
-            <img src="assets/images/login-icon.png" alt="login-icon">
+        <a href="../ClientSide/login-signup.php">
+            <img src="../assets/images/login-icon.png" alt="login-icon">
         </a>
     </nav>
 
@@ -58,21 +56,21 @@ Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enj
     <table class="table">
         <tr>
             <td class="table-cell">
-                <img src="assets\images\grid1.jpg" alt="Image 2" class="table-image">
+                <img src="../assets/images/grid1.jpg" alt="Image 2" class="table-image">
                 <div class="table-overlay">
                     <h3>Single Room</h3>
                     <hr max-width="60vw">
                 </div>
             </td>
             <td class="table-cell">
-                <img src="assets/images/grid2.jpg" alt="Image 3" class="table-image">
+                <img src="../assets/images/grid2.jpg" alt="Image 3" class="table-image">
                 <div class="table-overlay">
                     <h3>Double Room</h3>
                     <hr max-width="60vw">
                 </div>
             </td>
             <td class="table-cell">
-                <img src="assets/images/grid3.jpg" alt="Image 3" class="table-image">
+                <img src="../assets/images/grid3.jpg" alt="Image 3" class="table-image">
                 <div class="table-overlay">
                     <h3>Twin Room</h3>
                     <hr max-width="60vw">
@@ -82,21 +80,21 @@ Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enj
         <tr>
     
             <td class="table-cell">
-                <img src="assets/images/grid4.jpg" alt="Image 3" class="table-image">
+                <img src="../assets/images/grid4.jpg" alt="Image 3" class="table-image">
                 <div class="table-overlay">
                     <h3>Family Room</h3>
                     <hr max-width="60vw">
                 </div>
             </td>
             <td class="table-cell">
-                <img src="assets/images/grid5.jpg" alt="Image 3" class="table-image">
+                <img src="../assets/images/grid5.jpg" alt="Image 3" class="table-image">
                 <div class="table-overlay">
                     <h3>Executive Suite</h3>
                     <hr max-width="60vw">
                 </div>
             </td>
             <td class="table-cell">
-                <img src="assets/images/grid6.jpg" alt="Image 1" class="table-image">
+                <img src="../assets/images/grid6.jpg" alt="Image 1" class="table-image">
                 <div class="table-overlay">
                     <h3>VIP Suite</h3>
                     <hr max-width="60vw">
@@ -128,13 +126,13 @@ Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enj
                 <h2>Address</h2>
                 <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
                             target="_blank">
-                            <address style="margin: 0;"><img src="assets\images\location.png"
+                            <address style="margin: 0;"><img src="../assets/images/location.png"
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
-                <p><img src="assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
                         (409) 987–5874</a></p>
-                <a href="mailto:spring@hotel.com"><img src="assets/images/email.png"
+                <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
@@ -142,7 +140,7 @@ Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enj
             <form onsubmit="subscribeNewsletter(event)">
                 <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
                 <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="assets/audio/button-click.mp3" type="audio/mp3"></audio>
+                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
 
                 <output id="subscribeOutput" for="emailInput"></output>
             </form>
@@ -184,20 +182,20 @@ Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enj
             
         </div>
         <div class="footer-socials">
-            <a href="https://www.instagram.com/" target="_blank"><img src="assets\images\instagram.png"
+            <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
                     class="footer-socials-icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="assets\images\facebook.png"
+            <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
                     class="footer-socials-icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="assets\images\twitter.png"
+            <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
                     class="footer-socials-icon"></a>
         </div>
     </footer>         
     
     <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
             style="display: flex; align-items: center; justify-content: center;"
-            src="assets/images/backToTop.png" /></button>
-    <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
-<script src="js/About-Us.js"></script>
-<script src="assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+            src="../assets/images/backToTop.png" /></button>
+    <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src="../js/ClientSide/About-Us.js"></script>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
