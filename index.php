@@ -4,6 +4,21 @@ session_start(); // Start the session
 // Check if the username is set in the session, if not, set it to "Guest"
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
 ?>
+
+<?php
+// Shiqo a ekziston cookin ne oren e fundit
+if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time'] < 3600)) {
+    // Mbaje fontin
+    $font_style = "font-family: 'Times New Roman', Times, serif;";
+} else {
+    // Nddroje fontin
+    $font_style = "font-family: Arial, sans-serif;";
+    
+    // Cookie per ndrrim te fontit
+    setcookie('font_change_time', time(), time() + 3600); 
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -238,23 +253,22 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
     <section class="pool-section">
 
         <div class="formating-div">
-            <div class="pool-text">
-                <h1>Indoor Hotel Pool</h1>
-                <p>
-                    The indoor heated pool has vaulted wood beam ceilings. 
-                    The whirlpool features bay windows and overlooks the pond and the north face of the local beauty spot. 
-                    For the safety and health reasons, children must be accompanied by an adult when visiting the pool.
-                </p>
+        <div class="pool-text" style="<?php echo $font_style; ?>">
+    <h1>Indoor Hotel Pool</h1>
+    <p>
+        The indoor heated pool has vaulted wood beam ceilings. 
+        The whirlpool features bay windows and overlooks the pond and the north face of the local beauty spot. 
+        For the safety and health reasons, children must be accompanied by an adult when visiting the pool.
+    </p>
 
-                <p>
-                    The serene pool at Spring Hotel &amp; Spa resort and hotel boasts sleek décor that features striking floor-to-ceiling teak columns set against a cool black tile floor.
-                    Poolside dining is also available, featuring a selection of dishes from any cuisine you desire that are both healthy and delicious. 
-                    Daily aqua aerobics classes help keep guests fit while on the road.
-                </p>
+    <p>
+        The serene pool at Spring Hotel &amp; Spa resort and hotel boasts sleek décor that features striking floor-to-ceiling teak columns set against a cool black tile floor.
+        Poolside dining is also available, featuring a selection of dishes from any cuisine you desire that are both healthy and delicious. 
+        Daily aqua aerobics classes help keep guests fit while on the road.
+    </p>
 
-                <a href="./About-Us.html" id="poolBtn" class="btn btn-primary">Learn More</a>
-            </div>
-
+    <a href="./About-Us.html" id="poolBtn" class="btn btn-primary">Learn More</a>
+</div>
             <div class="pool-container" onclick="openModal2()" >
                 <img src="assets/images/indoor-pool.jpg" width="auto" height="400px"/>
                 <div class="image-overlay-2" style="cursor: pointer;">
