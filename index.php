@@ -1,9 +1,4 @@
-<?php
-session_start(); // Start the session
-
-// Check if the username is set in the session, if not, set it to "Guest"
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
-?>
+<?php include "API/WelcomeUser.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +10,8 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script defer src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
-    <!--  -->
-    <script defer src="js/Home.js"></script>
+    <!--  
+    <script defer src="js/Home.js"></script>-->
     <title>Spring Hotel &amp; Spa</title>
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -110,10 +105,33 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
             <li><a href="./FAQ.html">FAQ</a></li>
             <li><a href="./Events.html">Events</a></li>
         </ul>
-        <a href="login-signup.html">
-            <img src="assets/images/login-icon.png" alt="login-icon">
-        </a>
-        <h2>Welcome <?php echo $username; ?></h2>
+<!-- HTML -->
+<a id="loginLink" href="login-signup.php">
+    <img id="loginIcon" src="assets/images/login-icon.png" alt="login-icon">
+</a>
+<h7 id="welcomeMessage" style="display: none;">Welcome <?php echo $username; ?></h7>
+
+<script>
+    // JavaScript
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get references to the image and welcome message elements
+        const loginIcon = document.getElementById("loginIcon");
+        const welcomeMessage = document.getElementById("welcomeMessage");
+
+        // Function to toggle visibility of elements
+        function toggleElements() {
+            loginIcon.style.display = (loginIcon.style.display === "none") ? "block" : "none";
+            welcomeMessage.style.display = (welcomeMessage.style.display === "none") ? "block" : "none";
+        }
+        toggleElements(); // Hide the image and show the welcome message
+
+        // After signing in, hide the image for 2 seconds and then show the welcome message
+        setTimeout(function() {
+            setTimeout(toggleElements, 2000); // After 2 seconds, reverse the visibility
+        }, 2000); // Wait for 2 seconds after page load
+    });
+</script>
+
         </nav>
 
         <section class="carousel-n-booking">

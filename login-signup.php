@@ -1,3 +1,6 @@
+<?php
+session_destroy()
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,21 +21,23 @@
 <body>
     <div class="overlay"></div>
     <div class="container">
-        <form action="API/WelcomeUser.php" method="post" class="form " id="login">
+        <form action="API/WelcomeUser.php" method="post" class="form" >
             <div class="logoja">
                 <h1 class="form-title">Login</h1>
                 <a href="./index.php"><img src="assets/images/Logo.png" alt="Logo" /></a>
             </div>
             <div class="form-message form-message-error"></div>
             <div class="form-input-group">
-                <input name="username" type="text" class="form-input" autofocus placeholder="Username or email">
+                <label for="username"></label>
+                <input id="username" name="username" type="text" class="form-input"  autofocus placeholder="Username or email">
                 <div class="form-input-error-message"></div>
             </div>
             <div class="form-input-group">
-                <input type="password" class="form-input" autofocus placeholder="Password">
+                <label for="password"></label>
+                <input type="password" name="password" id="password" class="form-input" autofocus placeholder="Password">
                 <div class="form-input-error-message"></div>
             </div>
-            <button class="form-button" type="submit">Continue</button>
+            <button type="submit" class="form-button" >Continue</button>
             <p class="form-text">
                 <a class="form-link" id="linkCreateAccount">Don't have an account? Create account</a>
             </p>
@@ -40,6 +45,7 @@
                 <a href="./index.php" class="form-link">Back home</a>
             </p>
         </form>
+
         <form class="form form-hidden" id="createAccount">
             <div class="logoja">
                 <h1 class="form-title">Create Account</h1>
