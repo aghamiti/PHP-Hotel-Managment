@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Poppins';
-    src: url(../assets/fonts/Poppins-Regular.ttf);
+    src: url(../../assets/fonts/Poppins-Regular.ttf);
 }
 body {
     --color-primary: #8F859E;
@@ -16,7 +16,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    background: url(../assets/images/background-image-login.jpg);
+    background: url(../../assets/images/background-image-login.jpg);
     background-size: cover; 
 }
 

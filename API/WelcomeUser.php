@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $_POST['username'];
         
         // Redirect to the homepage
-        header("Location: ../");
+        header("Location: ../ClientSide/index.php");
         exit();
     } else {
         // Handle invalid username (optional)

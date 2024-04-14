@@ -1,18 +1,23 @@
+<?php
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <title>Spring Hotel | About Us</title>
+    <title>Spring Hotel | Admin | Calendar</title>
     <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="css/About-Us.css">
+    <link rel="stylesheet" href="css/AdminDashStyle/Calendar.css">
 </head>
 <body>
     <div class="logoja">
         <a href="./index.html"><img src="assets/images/Logo.png" alt="Logo" /></a>
     </div>
-    
+
     <nav class="navbar">
         <div></div>
         <ul>
@@ -30,16 +35,16 @@
     <header class="header">
         <h1>About Us</h1>
         <p><a href="/">Home</a>&rarr;<b>About us</b></p>
-    </header>    
+    </header>
 
-    <div class="img-recepsioni" > 
-       
+    <div class="img-recepsioni" >
+
         <div class="text">
          <h1> A Few Words </br> About Us </h1>
          <p>
-             Fed up with the monotony of your daily grind? Craving a spot to kick back and unwind with your loved ones? Look no further! Our spa resort and hotel offer a lavish escape with a touch of history for intrepid travelers. We seamlessly blend contemporary flair and modern amenities with the charm of traditional values.
- 
-             Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enjoy complimentary WI-FI sprawled across the entire hotel expanse. Our restaurant serves up a delightful fusion of global cuisines, bringing people together through a tapestry of history and traditions. Immerse yourself in the warmth of our hospitality, experience impeccable service, and revel in exceptional comfort! Don't miss the chance to secure your reservation for the vacation of your dreams today!
+Fed up with the monotony of your daily grind? Craving a spot to kick back and unwind with your loved ones? Look no further! Our spa resort and hotel offer a lavish escape with a touch of history for intrepid travelers. We seamlessly blend contemporary flair and modern amenities with the charm of traditional values.
+
+Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enjoy complimentary WI-FI sprawled across the entire hotel expanse. Our restaurant serves up a delightful fusion of global cuisines, bringing people together through a tapestry of history and traditions. Immerse yourself in the warmth of our hospitality, experience impeccable service, and revel in exceptional comfort! Don't miss the chance to secure your reservation for the vacation of your dreams today!
          </p>
         </div>
     </div>

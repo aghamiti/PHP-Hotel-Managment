@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: "Poppins";
-    src: url(../assets/fonts/Poppins-Regular.ttf);
+    src: url(../../assets/fonts/Poppins-Regular.ttf);
 }
 
 @font-face {
     font-family: "Poppins-SemiBold";
-    src: url(../assets/fonts/Poppins-SemiBold.ttf);
+    src: url(../../assets/fonts/Poppins-SemiBold.ttf);
 }
 
 .logoja{

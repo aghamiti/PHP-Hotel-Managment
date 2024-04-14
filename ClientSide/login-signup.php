@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Signup</title>
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/ClientSide/login-signup.css">
     <style>
         .termsAndConditions-container {
             display: inline-block;
@@ -18,10 +18,10 @@
 <body>
     <div class="overlay"></div>
     <div class="container">
-        <form action="API/WelcomeUser.php" method="post" class="form" >
+        <form action="../API/WelcomeUser.php" method="post" class="form" >
             <div class="logoja">
                 <h1 class="form-title">Login</h1>
-                <a href="./index.php"><img src="assets/images/Logo.png" alt="Logo" /></a>
+                <a href="./index.php"><img src="../assets/images/Logo.png" alt="Logo" /></a>
             </div>
             <div class="form-message form-message-error"></div>
             <div class="form-input-group">
@@ -91,7 +91,7 @@
                 <a class="form-link" id="linkLogin">Already have an account? Login</a>
             </p>
             <p align="center">
-                <a href="./index.php" class="form-link">Back home</a>
+                <a href="index.php" class="form-link">Back home</a>
             </p>
         </form>
             <!-- Popup for terms and conditions -->
@@ -147,11 +147,11 @@
                     </ol>
                     By using our website, you agree to abide by these terms and conditions.
                 </p>
-                <a href="assets\Terms and Conditions.pdf" target="_blank" id="terms-download">Download</a>
+                <a href="../assets/Terms and Conditions.pdf" target="_blank" id="terms-download">Download</a>
             </div>
         </div>
     </div>
 
-    <script src="js/login-signup.js"></script>
+    <script src="../js/ClientSide/login-signup.js"></script>
 </body>
 </html>

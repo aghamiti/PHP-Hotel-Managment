@@ -1,4 +1,4 @@
-<?php include "API/WelcomeUser.php";?>
+<?php include "../API/WelcomeUser.php";?>
 
 <?php
 // Shiqo a ekziston cookin ne oren e fundit
@@ -19,12 +19,12 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/Home.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/ClientSide/Home.css">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <script defer src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script defer src="../assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <!--  
     <script defer src="js/Home.js"></script>-->
     <title>Spring Hotel &amp; Spa</title>
@@ -108,21 +108,21 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
 
 <body>
     <div class="logoja">
-        <a href="./index.php"><img src="assets/images/Logo.png" alt="Logo" /></a>
+        <a href="index.php"><img src="../assets/images/Logo.png" alt="Logo" /></a>
     </div>
     
     <nav class="navbar">
         <div></div>
         <ul>
-            <li><a href="./index.html">Home</a></li>
+            <li><a href="./index.php">Home</a></li>
             <li><a href="./About-Us.html">About Us</a></li>
             <li><a href="./Contacts.html">Contacts</a></li>
             <li><a href="./FAQ.html">FAQ</a></li>
-            <li><a href="./Events.html">Events</a></li>
+            <li><a href="./Events.php">Events</a></li>
         </ul>
 <!-- HTML -->
 <a id="loginLink" href="login-signup.php">
-    <img id="loginIcon" src="assets/images/login-icon.png" alt="login-icon">
+    <img id="loginIcon" src="../assets/images/login-icon.png" alt="login-icon">
 </a>
 <h7 id="welcomeMessage" style="display: none;">Welcome <?php echo $username; ?></h7>
 
@@ -229,7 +229,7 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
 
             <!-- Video thumbnail me onlcick event per te hapur modalin -->
             <div class="abt-us-video" onclick="openModal()">
-                <img src="assets/images/video-thumbnail-1.jpg" alt="Video Thumbnail" />
+                <img src="../assets/images/video-thumbnail-1.jpg" alt="Video Thumbnail" />
                 
                 <div class="image-overlay-1" style="cursor: pointer;">
                     <div class="play-button">&#9654;</div>
@@ -239,12 +239,12 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
             <!-- Modali -->
             <div id="myModal" class="modal">
 
-                <img class="close-btn" src="assets/images/close-video.png" width="auto" height="auto" onclick="closeModal()"/>
+                <img class="close-btn" src="../assets/images/close-video.png" width="auto" height="auto" onclick="closeModal()"/>
 
                 <div class="modal-content">
                 <!-- Video element -->
                 <video class="video1" controls autoplay muted>
-                    <source src="assets/video/hotel-video.mp4" type="video/mp4">
+                    <source src="../assets/video/hotel-video.mp4" type="video/mp4">
                 </video>
                 </div>
             </div>
@@ -285,10 +285,10 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
         Daily aqua aerobics classes help keep guests fit while on the road.
     </p>
 
-    <a href="./About-Us.html" id="poolBtn" class="btn btn-primary">Learn More</a>
+    <a href="About-Us.html" id="poolBtn" class="btn btn-primary">Learn More</a>
 </div>
             <div class="pool-container" onclick="openModal2()" >
-                <img src="assets/images/indoor-pool.jpg" width="auto" height="400px"/>
+                <img src="../assets/images/indoor-pool.jpg" width="auto" height="400px"/>
                 <div class="image-overlay-2" style="cursor: pointer;">
                     <div class="play-button">&#9654;</div>
                 </div>
@@ -296,12 +296,12 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
 
             <div id="myModal2" class="modal">
 
-                <img class="close-btn" src="assets/images/close-video.png" width="auto" height="auto" onclick="closeModal2()"/>
+                <img class="close-btn" src="../assets/images/close-video.png" width="auto" height="auto" onclick="closeModal2()"/>
 
                 <div class="modal-content">
                 <!-- Video element -->
                 <video class="video2" controls autoplay muted>
-                    <source src="assets/video/pool-showcase-video.mp4" type="video/mp4">
+                    <source src="../assets/video/pool-showcase-video.mp4" type="video/mp4">
                 </video>
                 </div>
             </div>
@@ -327,13 +327,13 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
         <div class="card mb-3" style="max-width: 800px;  margin-top: 30px;" data-posted-month="June">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="assets/images/blog-image-1.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
+                <img src="../assets/images/blog-image-1.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
               </div>
               <div id="artikulli1" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Top 3 Reasons Why Spring Villas Offers the Best Spa Procedures</h5>
 
-                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="../assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         June 12, 2023
                     </p>
                 </div>
@@ -344,13 +344,13 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
           <div class="card mb-3" style="max-width: 800px;" data-posted-month="June">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="assets/images/blog-image-2.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
+                <img src="../assets/images/blog-image-2.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
               </div>
               <div id="artikulli2" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Featured Therapies and Activities at Spring Villas Spa Resort and Hotel</h5>
 
-                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="../assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         June 12, 2023
                     </p>
                 </div>
@@ -361,13 +361,13 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
           <div class="card mb-3" style="max-width: 800px;" data-posted-month="August">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="assets/images/blog-image-3.jpg" class="img-fluid rounded-start" alt="Blog Image 3">
+                <img src="../assets/images/blog-image-3.jpg" class="img-fluid rounded-start" alt="Blog Image 3">
               </div>
               <div id="artikulli3" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Why Your Relaxing Getaway Starts Here</h5>
 
-                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="../assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         August 26, 2023
                     </p>
                 </div>
@@ -392,9 +392,9 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
-                <p><img src="assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
                         (409) 987–5874</a></p>
-                <a href="mailto:spring@hotel.com"><img src="assets/images/email.png"
+                <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
@@ -402,7 +402,7 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
             <form onsubmit="subscribeNewsletter(event)">
                 <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
                 <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="assets/audio/button-click.mp3" type="audio/mp3"></audio>
+                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
 
                 <output id="subscribeOutput" for="emailInput"></output>
             </form>
@@ -454,7 +454,7 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
     </footer>       
 
     <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
-            src="assets/images/backToTop.png" /></button>-
+            src="../assets/images/backToTop.png" /></button>-
     <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
 </body>
 </html>

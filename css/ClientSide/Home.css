@@ -1,12 +1,12 @@
 
 @font-face {
     font-family: "Poppins";
-    src: url(../assets/fonts/Poppins-Regular.ttf);
+    src: url(../../assets/fonts/Poppins-Regular.ttf);
 }
 
 @font-face {
     font-family: "Poppins-SemiBold";
-    src: url(../assets/fonts/Poppins-SemiBold.ttf);
+    src: url(../../assets/fonts/Poppins-SemiBold.ttf);
 }
 
 
@@ -171,13 +171,13 @@ input:checked + label .card-description{
 }
 
 .carousel-card[for="c1"] {
-    background-image: url("../assets/images/slide-01.jpg");
+    background-image: url("../../assets/images/slide-01.jpg");
 }
 .carousel-card[for="c2"] {
-    background-image: url("../assets/images/slide-02.jpg");
+    background-image: url("../../assets/images/slide-02.jpg");
 }
 .carousel-card[for="c3"] {
-    background-image: url("../assets/images/slide-03.jpg");
+    background-image: url("../../assets/images/slide-03.jpg");
 }
 
 #booking{

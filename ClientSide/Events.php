@@ -20,27 +20,27 @@ if (isset($_POST['email'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/Events.css">
-    <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/ClientSide/Events.css">
+    <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <title>Spring Hotel | Events</title>
 </head>
 <body>
     
     <div class="logoja">
-        <a href="./index.html"><img src="assets/images/Logo.png" alt="Logo" /></a>
+        <a href="./index.html"><img src="../assets/images/Logo.png" alt="Logo" /></a>
     </div>
     <nav class="navbar">
         <div></div>
         <ul>
-            <li><a href="./index.html">Home</a></li>
+            <li><a href="./index.php">Home</a></li>
             <li><a href="./About-Us.html">About Us</a></li>
             <li><a href="./Contacts.html">Contacts</a></li>
             <li><a href="./FAQ.html">FAQ</a></li>
-            <li><a href="./Events.html">Events</a></li>
+            <li><a href="./Events.php">Events</a></li>
         </ul>
         <a href="login-signup.html">
-            <img src="assets/images/login-icon.png" alt="login-icon">
+            <img src="../assets/images/login-icon.png" alt="login-icon">
         </a>
     </nav>
 
@@ -149,7 +149,7 @@ if (isset($_POST['email'])) {
             </div>
             <div class="col-md-4 mt-md-4 animated bounce infinite text-center">
                 <div class="card" >
-                    <img class="card-img-top" src="assets/images/city_view.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="../assets/images/city_view.jpg" alt="Card image cap">
                     <div class="card-body">
                         <p class="card-text text-start text-dark"><a href="https://www.instagram.com/virginhotelsnyc/" class="card-text text-dark text-decoration-none"><b>springhotel</b> </a> This room service spread is giving us all the heart eyes! 😍🍴 #SpringHotelsLuxury</p>
                         <a href="https://www.instagram.com/p/C1X2ZB0vrC6/" target="_blank" class="btn btn-outline-dark btn-costum">
@@ -176,9 +176,9 @@ if (isset($_POST['email'])) {
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
-                <p><img src="assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
                         (409) 987–5874</a></p>
-                <a href="mailto:spring@hotel.com"><img src="assets/images/email.png"
+                <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
@@ -188,7 +188,7 @@ if (isset($_POST['email'])) {
         <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
             <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
         <?php } ?>
-        <audio id="SubscribeAudio" src="assets/audio/button-click.mp3" type="audio/mp3"></audio>
+        <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
         <output id="subscribeOutput" for="emailInput"></output>
     </form>
 
@@ -256,8 +256,8 @@ if (isset($_POST['email'])) {
    
     
     
-    <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px" style="display: flex; align-items: center; justify-content: center;" src="assets/images/backToTop.png"/></button>
+    <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px" style="display: flex; align-items: center; justify-content: center;" src="../assets/images/backToTop.png"/></button>
     <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
-    <script src="js/Events.js"></script>
+    <script src="../js/ClientSide/Events.js"></script>
 </body>
 </html>
