@@ -1,16 +1,22 @@
+<?php
+session_start(); // Start the session
+
+// Check if the username is set in the session, if not, set it to "Guest"
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : "Guest";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/Home.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/Home.css">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <script defer src="/assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script defer src="assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <!--  -->
-    <script defer src="/js/Home.js"></script>
+    <script defer src="js/Home.js"></script>
     <title>Spring Hotel &amp; Spa</title>
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -92,7 +98,7 @@
 
 <body>
     <div class="logoja">
-        <a href="./index.html"><img src="/assets/images/Logo.png" alt="Logo" /></a>
+        <a href="./index.php"><img src="assets/images/Logo.png" alt="Logo" /></a>
     </div>
     
     <nav class="navbar">
@@ -105,9 +111,10 @@
             <li><a href="./Events.html">Events</a></li>
         </ul>
         <a href="login-signup.html">
-            <img src="/assets/images/login-icon.png" alt="login-icon">
+            <img src="assets/images/login-icon.png" alt="login-icon">
         </a>
-    </nav>
+        <h2>Welcome <?php echo $username; ?></h2>
+        </nav>
 
         <section class="carousel-n-booking">
 
@@ -189,7 +196,7 @@
 
             <!-- Video thumbnail me onlcick event per te hapur modalin -->
             <div class="abt-us-video" onclick="openModal()">
-                <img src="/assets/images/video-thumbnail-1.jpg" alt="Video Thumbnail" />
+                <img src="assets/images/video-thumbnail-1.jpg" alt="Video Thumbnail" />
                 
                 <div class="image-overlay-1" style="cursor: pointer;">
                     <div class="play-button">&#9654;</div>
@@ -199,12 +206,12 @@
             <!-- Modali -->
             <div id="myModal" class="modal">
 
-                <img class="close-btn" src="/assets/images/close-video.png" width="auto" height="auto" onclick="closeModal()"/>
+                <img class="close-btn" src="assets/images/close-video.png" width="auto" height="auto" onclick="closeModal()"/>
 
                 <div class="modal-content">
                 <!-- Video element -->
                 <video class="video1" controls autoplay muted>
-                    <source src="/assets/video/hotel-video.mp4" type="video/mp4">
+                    <source src="assets/video/hotel-video.mp4" type="video/mp4">
                 </video>
                 </div>
             </div>
@@ -249,7 +256,7 @@
             </div>
 
             <div class="pool-container" onclick="openModal2()" >
-                <img src="/assets/images/indoor-pool.jpg" width="auto" height="400px"/>
+                <img src="assets/images/indoor-pool.jpg" width="auto" height="400px"/>
                 <div class="image-overlay-2" style="cursor: pointer;">
                     <div class="play-button">&#9654;</div>
                 </div>
@@ -257,12 +264,12 @@
 
             <div id="myModal2" class="modal">
 
-                <img class="close-btn" src="/assets/images/close-video.png" width="auto" height="auto" onclick="closeModal2()"/>
+                <img class="close-btn" src="assets/images/close-video.png" width="auto" height="auto" onclick="closeModal2()"/>
 
                 <div class="modal-content">
                 <!-- Video element -->
                 <video class="video2" controls autoplay muted>
-                    <source src="/assets/video/pool-showcase-video.mp4" type="video/mp4">
+                    <source src="assets/video/pool-showcase-video.mp4" type="video/mp4">
                 </video>
                 </div>
             </div>
@@ -288,13 +295,13 @@
         <div class="card mb-3" style="max-width: 800px;  margin-top: 30px;" data-posted-month="June">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="/assets/images/blog-image-1.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
+                <img src="assets/images/blog-image-1.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
               </div>
               <div id="artikulli1" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Top 3 Reasons Why Spring Villas Offers the Best Spa Procedures</h5>
 
-                    <p class="card-text"><img src="/assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         June 12, 2023
                     </p>
                 </div>
@@ -305,13 +312,13 @@
           <div class="card mb-3" style="max-width: 800px;" data-posted-month="June">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="/assets/images/blog-image-2.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
+                <img src="assets/images/blog-image-2.jpg" class="img-fluid rounded-start" alt="Blog Image 1">
               </div>
               <div id="artikulli2" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Featured Therapies and Activities at Spring Villas Spa Resort and Hotel</h5>
 
-                    <p class="card-text"><img src="/assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         June 12, 2023
                     </p>
                 </div>
@@ -322,13 +329,13 @@
           <div class="card mb-3" style="max-width: 800px;" data-posted-month="August">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="/assets/images/blog-image-3.jpg" class="img-fluid rounded-start" alt="Blog Image 3">
+                <img src="assets/images/blog-image-3.jpg" class="img-fluid rounded-start" alt="Blog Image 3">
               </div>
               <div id="artikulli3" class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" style="width: 100%;">Why Your Relaxing Getaway Starts Here</h5>
 
-                    <p class="card-text"><img src="/assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
+                    <p class="card-text"><img src="assets/images/clock-blog.png" width="16px" height="16px" style="margin-right: 30px;" />
                         August 26, 2023
                     </p>
                 </div>
@@ -349,13 +356,13 @@
                 <h2>Address</h2>
                 <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
                             target="_blank">
-                            <address style="margin: 0;"><img src="/assets\images\location.png"
+                            <address style="margin: 0;"><img src="assets\images\location.png"
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
-                <p><img src="/assets\images\call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                <p><img src="assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
                         (409) 987–5874</a></p>
-                <a href="mailto:spring@hotel.com"><img src="/assets/images/email.png"
+                <a href="mailto:spring@hotel.com"><img src="assets/images/email.png"
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
@@ -363,7 +370,7 @@
             <form onsubmit="subscribeNewsletter(event)">
                 <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
                 <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="/assets/audio/button-click.mp3" type="audio/mp3"></audio>
+                <audio id="SubscribeAudio" src="assets/audio/button-click.mp3" type="audio/mp3"></audio>
 
                 <output id="subscribeOutput" for="emailInput"></output>
             </form>
@@ -405,24 +412,18 @@
             
         </div>
         <div class="footer-socials">
-            <a href="https://www.instagram.com/" target="_blank"><img src="/assets\images\instagram.png"
+            <a href="https://www.instagram.com/" target="_blank"><img src="assets\images\instagram.png"
                     class="footer-socials-icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="/assets\images\facebook.png"
+            <a href="https://www.facebook.com/" target="_blank"><img src="assets\images\facebook.png"
                     class="footer-socials-icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="/assets\images\twitter.png"
+            <a href="https://twitter.com/" target="_blank"><img src="assets\images\twitter.png"
                     class="footer-socials-icon"></a>
         </div>
-    
-        <div class="footer-copyright">
-            &copy; Darn Development All Rights Reserved
-        </div>
-    
-   
     </footer>       
 
     <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
-            src="/assets/images/backToTop.png" /></button>-
-    <audio id="backToTopSound" src="/assets\audio\whoosh.mp3" type="audio/mp3"></audio>
+            src="assets/images/backToTop.png" /></button>-
+    <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
 </body>
 </html>
 <script>

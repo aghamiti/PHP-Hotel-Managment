@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Signup</title>
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/css/login-signup.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/login-signup.css">
     <style>
         .termsAndConditions-container {
             display: inline-block;
@@ -18,14 +18,14 @@
 <body>
     <div class="overlay"></div>
     <div class="container">
-        <form class="form " id="login">
+        <form action="API/WelcomeUser.php" method="post" class="form " id="login">
             <div class="logoja">
-            <h1 class="form-title">Login</h1>
-            <a href="./index.html"><img src="/assets/images/Logo.png" alt="Logo" /></a>
-        </div>
+                <h1 class="form-title">Login</h1>
+                <a href="./index.php"><img src="/assets/images/Logo.png" alt="Logo" /></a>
+            </div>
             <div class="form-message form-message-error"></div>
             <div class="form-input-group">
-                <input type="text" class="form-input" autofocus placeholder="Username or email">
+                <input name="username" type="text" class="form-input" autofocus placeholder="Username or email">
                 <div class="form-input-error-message"></div>
             </div>
             <div class="form-input-group">
@@ -37,7 +37,7 @@
                 <a class="form-link" id="linkCreateAccount">Don't have an account? Create account</a>
             </p>
             <p class="form-text">
-                <a href="./index.html" class="form-link">Back home</a>
+                <a href="./index.php" class="form-link">Back home</a>
             </p>
         </form>
         <form class="form form-hidden" id="createAccount">
@@ -88,7 +88,7 @@
                 <a class="form-link" id="linkLogin">Already have an account? Login</a>
             </p>
             <p align="center">
-                <a href="./index.html" class="form-link">Back home</a>
+                <a href="./index.php" class="form-link">Back home</a>
             </p>
         </form>
             <!-- Popup for terms and conditions -->
@@ -149,6 +149,6 @@
         </div>
     </div>
 
-    <script src="/js/login-signup.js"></script>
+    <script src="js/login-signup.js"></script>
 </body>
 </html>
