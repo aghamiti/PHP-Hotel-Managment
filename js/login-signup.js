@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const loginPassword = loginPasswordInput.value;
 
         if (loginEmail === 'projekti@ueb1.fiek' && loginPassword === 'FIEK2024*') {
-            window.location.href = "home.html"; // Redirect to home.html for successful login
+            window.location.href = "index.php"; // Redirect to index.php for successful login
         } else {
             setFormMessage(loginForm, "error", "Wrong email/password combination");
         }
