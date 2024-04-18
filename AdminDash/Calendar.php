@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-    <title>Spring Hotel | Admin | Calendar</title>
+    <title>Spring Hotel | Calendar | Admin</title>
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/AdminDash/Calendar.css">
 </head>
