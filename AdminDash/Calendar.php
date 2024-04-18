@@ -31,8 +31,7 @@
     </nav>
 
     <header class="header">
-        <h1>About Us</h1>
-        <p><a href="/">Home</a>&rarr;<b>About us</b></p>
+        <h1>Calendar</h1>
     </header>
 
     <div class="container mt-5">
