@@ -31,7 +31,23 @@
 
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script defer src="../assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
-
+    <style>
+        .atributet{
+            font-size: 21px;
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-style: oblique;
+            color: #8f859e;
+        }
+        .atributet1{
+            color: black;
+        }
+        .heading2{
+            text-align: center; 
+            font-family: 'Poppins'; 
+            font-size:35px;
+            color: black;
+        }
+    </style>
     <title>Spring Hotel &amp; Spa</title>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
