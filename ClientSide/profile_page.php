@@ -1,3 +1,25 @@
+<?php
+    session_start();
+        $user_id = $_SESSION['user_id'];
+        $dbserver = "";
+        $dbuser = "";
+        $dbpassword = "";
+        $dbname = "";
+        $conn = mysqli_connect($dbserver, $dbuser, $dbpassword, $dbname);
+        if (!$conn) {
+            echo 'Connection error: ' . mysqli_connect_error();
+        }
+        $user_id = mysqli_real_escape_string($conn, $user_id);
+        $sql = "SELECT * FROM Bookings";
+        $sql1 = "SELECT Price FROM Rooms";
+        $result = mysqli_query($conn, $sql); //Rezultati i Bookings
+        $result1 = mysqli_query($conn, $sql1); //Prices ne Rooms
+        $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $prices = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+        mysqli_free_result($result);
+        mysqli_free_result($result1);
+        mysqli_close($conn);  
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
