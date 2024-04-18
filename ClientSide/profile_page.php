@@ -76,6 +76,58 @@
             });
         </script>
     </nav>
+    <div class="carousel-container">
+    <div class="dashboard">
+        <br>
+        <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Your Reservation Dashboard</h1></table>
+        <br>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div id="doneReservations" class="col-md-5 background-light">
+                <h2  class="heading2">Past Reservations</h2>
+                <?php foreach ($bookings as $booking) {
+                        $checkOutDate = strtotime($booking['CheckOutDate']);
+                        if ($checkOutDate < time()) { 
+                            $checkInDate = strtotime($booking['CheckInDate']);
+                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                        <hr>
+                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment; ?></p>
+                        <hr>
+                    <?php }
+                } ?>
+            </div>
+            <div id="upcomingReservations" class="col-md-5 background-light">
+                <h2 class="heading2">Upcoming Reservations</h2>
+                <?php foreach ($bookings as $booking) {
+                    
+                        $checkOutDate = strtotime($booking['CheckOutDate']);
+                        if ($checkOutDate >= time()) { 
+                            $checkInDate = strtotime($booking['CheckInDate']);
+                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                        <hr>
+                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment; ?></p>
+                        <hr>
+                    <?php }
+                } ?>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
     <footer>
         <div class="row footer-main">
             <div class="col-md-3 footer-main-opening">
