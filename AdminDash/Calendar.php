@@ -35,84 +35,99 @@
         <p><a href="/">Home</a>&rarr;<b>About us</b></p>
     </header>
 
-    <div class="img-recepsioni" >
-
-        <div class="text">
-         <h1> A Few Words </br> About Us </h1>
-         <p>
-Fed up with the monotony of your daily grind? Craving a spot to kick back and unwind with your loved ones? Look no further! Our spa resort and hotel offer a lavish escape with a touch of history for intrepid travelers. We seamlessly blend contemporary flair and modern amenities with the charm of traditional values.
-
-Each room boasts top-notch comforts, from air conditioning to sleek LCD TVs. Enjoy complimentary WI-FI sprawled across the entire hotel expanse. Our restaurant serves up a delightful fusion of global cuisines, bringing people together through a tapestry of history and traditions. Immerse yourself in the warmth of our hospitality, experience impeccable service, and revel in exceptional comfort! Don't miss the chance to secure your reservation for the vacation of your dreams today!
-         </p>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <h2>April 2024</h2>
+                    </div>
+                    <div class="calendar-body">
+                        <div class="row">
+                            <div class="col day text-center">
+                                <h4>1</h4>
+                                <div class="booked"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <!-- More days here -->
+                            <!-- You can dynamically generate these divs using JavaScript -->
+                        </div>
+                        <div class="row">
+                            <div class="col day text-center">
+                                <h4>1</h4>
+                                <div class="booked"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <!-- More days here -->
+                            <!-- You can dynamically generate these divs using JavaScript -->
+                        </div>
+                        <div class="row">
+                            <div class="col day text-center">
+                                <h4>1</h4>
+                                <div class="booked"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <!-- More days here -->
+                            <!-- You can dynamically generate these divs using JavaScript -->
+                        </div>
+                        <div class="row">
+                            <div class="col day text-center">
+                                <h4>1</h4>
+                                <div class="booked"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <div class="col day text-center">
+                                <h4>2</h4>
+                                <div class="available"></div>
+                            </div>
+                            <!-- More days here -->
+                            <!-- You can dynamically generate these divs using JavaScript -->
+                        </div>
+                        <!-- More rows here -->
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="rooms-main">
-        <h1>Rooms & Suites</h1>
-        <p style="width: 80%;">Spring Hotel offers the finest accommodations with unique designs that provide both a luxurious and relaxing
-        environment. Specially
-        selected fabrics and finishes vary from room to room, offering guests a variety of beautiful and unique atmospheres to
-        select from.</p>
-    <table class="table">
-        <tr>
-            <td class="table-cell">
-                <img src="../assets/images/grid1.jpg" alt="Image 2" class="table-image">
-                <div class="table-overlay">
-                    <h3>Single Room</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-            <td class="table-cell">
-                <img src="../assets/images/grid2.jpg" alt="Image 3" class="table-image">
-                <div class="table-overlay">
-                    <h3>Double Room</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-            <td class="table-cell">
-                <img src="../assets/images/grid3.jpg" alt="Image 3" class="table-image">
-                <div class="table-overlay">
-                    <h3>Twin Room</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-        </tr>
-        <tr>
-    
-            <td class="table-cell">
-                <img src="../assets/images/grid4.jpg" alt="Image 3" class="table-image">
-                <div class="table-overlay">
-                    <h3>Family Room</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-            <td class="table-cell">
-                <img src="../assets/images/grid5.jpg" alt="Image 3" class="table-image">
-                <div class="table-overlay">
-                    <h3>Executive Suite</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-            <td class="table-cell">
-                <img src="../assets/images/grid6.jpg" alt="Image 1" class="table-image">
-                <div class="table-overlay">
-                    <h3>VIP Suite</h3>
-                    <hr max-width="60vw">
-                </div>
-            </td>
-        </tr>
-    
-    </table>
-    </div>
-    <div class="reviews-main">
-        <h1 class="reviwes-main-title">What People Say</h1>
-        <div class="reviews-container" id="reviews-container">
-            
-        </div>
-    </div>
-    <div class="team-main">
-        <h1 class="team-main-title">Our Team</h1>
-        <div class="team-container" id="teamContainer"></div>
     </div>
     
     <footer>
