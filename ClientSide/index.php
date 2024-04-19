@@ -191,7 +191,7 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
             <div class="booking-form">
                 <h1 style="font-size: 30px; margin-top: 10px;">Book a Room</h1>
 
-                <form style="display: flex; flex-direction: column;" id="myForm">
+                <form style="display: flex; flex-direction: column;" id="myForm" method="post" action="../API/BookARoom.php">
                     <label class="text-uppercase" for="Full-Name">Your Full Name</label>
                     <input type="text" name="Full-Name" class="form-input" placeholder="Your Full Name..." required="true">
                 
@@ -399,13 +399,12 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
             </div>
             <div class="col-md-3 footer-main-newsletter">
                 <h2>Join our Newsletter</h2>
-            <form onsubmit="subscribeNewsletter(event)">
-                <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-                <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-
-                <output id="subscribeOutput" for="emailInput"></output>
-            </form>
+                <form method="post" action="../API/NewsLetter.php">
+                    <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput" name="email">
+                    <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
+                    <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+                    <output id="subscribeOutput" for="emailInput"></output>
+                </form>
 
             <script>
                 function subscribeNewsletter(event) {
