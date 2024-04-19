@@ -2,16 +2,16 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 
-include 'db_connection.php'; // Include your DB connection
+include 'db_connection.php'; // Ensure the correct database connection file and variable
 session_start(); // Start the session
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = mysqli_real_escape_string($mysqli, $_POST['username']);
-    $password = $_POST['password']; // Password from form, not yet sanitized because we hash it
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $username = mysqli_real_escape_string($conn, $_POST['username']); // Use $conn if that's your db connection variable
+    $password = $_POST['password']; // Get password from form
 
     // Prepare a select statement
-    $stmt = $mysqli->prepare("SELECT UserID, Password FROM Users WHERE Username = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $conn->prepare("SELECT UserID, Password FROM Users WHERE Username = ? OR Email = ?"); // Allows login with username or email
+    $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -19,20 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user) {
         // Check if the password is correct
         if (password_verify($password, $user['Password'])) {
-            // Password is correct, so start a new session
+            // Password is correct, so start a new session and set the user
             $_SESSION['login_user'] = $username;
             $_SESSION['user_id'] = $user['UserID'];
             header("location: ../ClientSide/index.php"); // Redirect to home page
             exit;
         } else {
-            // Password is not valid
-            $_SESSION['login_error'] = "Your Login Name or Password is invalid";
+            // Password is not valid, set an error message
+            $_SESSION['login_error'] = "Invalid Username or Password.";
             header("location: ../ClientSide/login.php"); // Redirect back to the login page
             exit;
         }
     } else {
         // Username doesn't exist
-        $_SESSION['login_error'] = "Your Login Name or Password is invalid";
+        $_SESSION['login_error'] = "Invalid Username or Password.";
         header("location: ../ClientSide/login.php"); // Redirect back to the login page
         exit;
     }

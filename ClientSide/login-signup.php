@@ -50,6 +50,6 @@
         </div>
     </div>
 
-    <script src="../js/ClientSide/login-signup.js"></script>
+    <!-- <script src="../js/ClientSide/login-signup.js"></script> -->
 </body>
 </html>

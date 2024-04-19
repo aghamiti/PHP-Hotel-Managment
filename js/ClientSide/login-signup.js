@@ -39,17 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     //Ky validim e kontrollon a jan email dhe password te njejta me te dhenat statike me poshte
-    loginForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const loginEmail = loginEmailInput.value.trim();
-        const loginPassword = loginPasswordInput.value;
-
-        if (loginEmail === 'projekti@ueb1.fiek' && loginPassword === 'FIEK2024*') {
-            window.location.href = "home.html"; // Redirect to home.html for successful login
-        } else {
-            setFormMessage(loginForm, "error", "Wrong email/password combination");
-        }
-    });
+    
     function validateForm() {
         let allFieldsFilled = true;
 
