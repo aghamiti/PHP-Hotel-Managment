@@ -44,7 +44,7 @@ class User {
 
     protected function redirectBasedOnRole() {
         if ($this->role === 'admin') {
-            header("location: ../ClientSide/admin_dashboard.php");
+            header("location: ../AdminDash/calendar.php");
         } else {
             header("location: ../ClientSide/index.php");
         }
