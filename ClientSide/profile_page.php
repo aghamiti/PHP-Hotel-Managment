@@ -2,13 +2,19 @@
     session_start();
         include_once '../API/db_connection.php';//Including the connection to the database
 
+        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
         $user_id = mysqli_real_escape_string($conn, $user_id);
+
         $sql = "SELECT * FROM Bookings";
         $sql1 = "SELECT Price FROM Rooms";
+
         $result = mysqli_query($conn, $sql); 
         $result1 = mysqli_query($conn, $sql1); 
+
         $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
         $prices = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+        
         mysqli_free_result($result);
         mysqli_free_result($result1);
         mysqli_close($conn);  
