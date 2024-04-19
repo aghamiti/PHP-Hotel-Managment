@@ -2,40 +2,72 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 
-include 'db_connection.php'; // Ensure the correct database connection file and variable
-session_start(); // Start the session
+require_once 'db_connection.php';  // Ensure the correct database connection file is included
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $username = mysqli_real_escape_string($conn, $_POST['username']); // Use $conn if that's your db connection variable
-    $password = $_POST['password']; // Get password from form
+class User {
+    protected $conn;
+    protected $username;
+    protected $password;
+    protected $role;
 
-    // Prepare a select statement
-    $stmt = $conn->prepare("SELECT UserID, Password FROM Users WHERE Username = ? OR Email = ?"); // Allows login with username or email
-    $stmt->bind_param("ss", $username, $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
 
-    if ($user) {
-        // Check if the password is correct
-        if (password_verify($password, $user['Password'])) {
-            // Password is correct, so start a new session and set the user
-            $_SESSION['login_user'] = $username;
+    public function setUsername($username) {
+        $this->username = mysqli_real_escape_string($this->conn, $username);
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function login() {
+        $stmt = $this->conn->prepare("SELECT UserID, Password, UserRole FROM Users WHERE Username = ? OR Email = ?");
+        $stmt->bind_param("ss", $this->username, $this->username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        
+        if ($user && password_verify($this->password, $user['Password'])) {
+            $_SESSION['login_user'] = $this->username;
             $_SESSION['user_id'] = $user['UserID'];
-            header("location: ../ClientSide/index.php"); // Redirect to home page
-            exit;
+            $this->role = $user['UserRole'];
+            $this->redirectBasedOnRole();
+            return true;
         } else {
-            // Password is not valid, set an error message
             $_SESSION['login_error'] = "Invalid Username or Password.";
-            header("location: ../ClientSide/login.php"); // Redirect back to the login page
-            exit;
+            return false;
         }
-    } else {
-        // Username doesn't exist
-        $_SESSION['login_error'] = "Invalid Username or Password.";
-        header("location: ../ClientSide/login.php"); // Redirect back to the login page
+    }
+
+    protected function redirectBasedOnRole() {
+        if ($this->role === 'admin') {
+            header("location: ../ClientSide/admin_dashboard.php");
+        } else {
+            header("location: ../ClientSide/index.php");
+        }
         exit;
     }
-    $stmt->close();
+}
+
+class AdminUser extends User {
+    protected function redirectBasedOnRole() {
+        header("location: ../ClientSide/admin_dashboard.php");
+        exit;
+    }
+}
+
+$user = new User($conn); 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $user->setUsername($_POST['username']);
+    $user->setPassword($_POST['password']);
+
+    if ($user->login()) {
+        // Redirection is handled within the login method based on user role
+    } else {
+        header("location: ../ClientSide/login.php"); // Redirect back to the login page
+    }
 }
 ?>
