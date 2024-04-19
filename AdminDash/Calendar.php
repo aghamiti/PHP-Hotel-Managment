@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +26,12 @@
         <li><a href="./Messages.php">Inbox</a></li>
         <li><a href="./Reservations.php">Reservations</a></li>
     </ul>
-    <a href="../ClientSide/login-signup.php">
-        <img src="../assets/images/login-icon.png" alt="login-icon">
-    </a>
+    <?php if(isset($_SESSION['login_user'])): ?>
+        <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
+        <h7><a href="../API/logout.php">Logout</a></h7>
+    <?php else: ?>
+        <h7><a href="../ClientSide/login-signup.php">Login / Signup</a></h7>
+    <?php endif; ?>
 </nav>
 
 <header class="header">
