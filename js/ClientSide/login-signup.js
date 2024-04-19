@@ -17,7 +17,7 @@ function clearInputError(inputElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("#login");
+    const loginForm = document.querySelector("#loginForm");
     const createAccountForm = document.querySelector("#createAccount");
     const loginEmailInput = document.querySelector("#login input[type='text']");
     const loginPasswordInput = document.querySelector("#login input[type='password']");
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const loginPassword = loginPasswordInput.value;
 
         if (loginEmail === 'projekti@ueb1.fiek' && loginPassword === 'FIEK2024*') {
-            window.location.href = "index.php"; // Redirect to index.php for successful login
+            window.location.href = "home.html"; // Redirect to home.html for successful login
         } else {
             setFormMessage(loginForm, "error", "Wrong email/password combination");
         }
@@ -115,18 +115,20 @@ document.addEventListener("DOMContentLoaded", () => {
     formInputs.forEach(input => {
         input.addEventListener('input', validateForm);
     });
+    
+
 
     document.querySelector("#linkCreateAccount").addEventListener("click", (e) => {
         e.preventDefault();
         loginForm.classList.add("form-hidden");
-        createAccountForm.classList.remove("form-hidden");
+        createAccountForm.classList['remove']('form-hidden');
     });
 
 
     document.querySelector("#linkLogin").addEventListener("click", (e) => {
         e.preventDefault();
-        loginForm.classList.remove("form-hidden");
-        createAccountForm.classList.add("form-hidden");
+        loginForm.classList['remove']('form-hidden');
+        createAccountForm.classList.add('form-hidden');
     });
 
     
