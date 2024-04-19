@@ -5,10 +5,10 @@ $password = "root1234"; // Ndrroni me t'juajat nese e provoni se me shume gjase 
 $dbname = "hotel_database"; 
 
 
-$mysqli = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

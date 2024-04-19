@@ -19,6 +19,20 @@
     <div class="overlay"></div>
     <div class="container">
 
+<?php 
+include "../API/db_connection.php";
+
+if(isset($_POST["submit"])){
+    $username = $_POST['signupUsername'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+
+    
+}else {
+?>
+   
+   
         <form method="post" class="form" id="createAccount" action="../API/signup.php">
             <div class="logoja">
                 <h1 class="form-title">Create Account</h1>
@@ -48,20 +62,22 @@
             <div class="newsletter-radio-main">
                 Do you want to sign up for our newsletter? 
                 <div>
-                    <input type="radio" id="Yes" name="newletter-option"> 
+                    <input type="radio" id="Yes" name="newsletter-option"> 
                     <label for="Yes">Yes</label>
-                    <input type="radio" id="No" name="newletter-option">
+                    <input type="radio" id="No" name="newsletter-option">
                     <label for="No">No</label>
                 </div>
             </div>
            
-            <button class="form-button" type="submit">Continue</button>
+            <button class="form-button" type="submit" name="submit">Continue</button>
             <p class="form-text">
-                <a class="form-link" id="linkLogin">Already have an account? Login</a>
+                <a class="form-link" id="linkLogin" href="login-signup.php">Already have an account? Login</a>
             </p>
             <p align="center">
                 <a href="index.php" class="form-link">Back home</a>
             </p>
+
+            <?php } ?>
         </form>
             <!-- Popup for terms and conditions -->
         <div class="popup" id="termsPopup">

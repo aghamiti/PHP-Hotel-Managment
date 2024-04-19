@@ -37,7 +37,7 @@
                 <input type="password" name="password" id="password" class="form-input" autofocus placeholder="Password">
                 <div class="form-input-error-message"></div>
             </div>
-            <button type="submit" class="form-button" >Continue</button>
+            <button type="submit" class="form-button" name="submit" >Continue</button>
             <p class="form-text">
                 <a class="form-link" id="linkCreateAccount" href="signup-form.php">Don't have an account? Create account</a>
             </p>
