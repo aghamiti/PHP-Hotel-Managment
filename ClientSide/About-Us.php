@@ -134,13 +134,12 @@
             </div>
             <div class="col-md-3 footer-main-newsletter">
                 <h2>Join our Newsletter</h2>
-            <form onsubmit="subscribeNewsletter(event)">
-                <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-                <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-
-                <output id="subscribeOutput" for="emailInput"></output>
-            </form>
+                <form method="post" action="../API/NewsLetter.php">
+                    <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput" name="email">
+                    <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
+                    <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+                    <output id="subscribeOutput" for="emailInput"></output>
+                </form>
 
             <script>
                 function subscribeNewsletter(event) {
