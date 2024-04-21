@@ -74,16 +74,105 @@
     <div class="carousel-container">
     <div class="dashboard">
         <br>
-        <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Your Reservation Dashboard</h1></table>
+        <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Reservation Dashboard</h1></table>
         <br>
         <div class="row">
             <div class="col-md-1"></div>
             <div id="doneReservations" class="col-md-5 background-light">
                 <h2  class="heading2">Past Reservations</h2>
+                <?php
+                $doneReservations = [
+                        '1' => [
+                            'GuestName' => "John Smith",
+                            'BookingID' => 1001,
+                            'CheckInDate' => "2023-12-20",
+                            'CheckOutDate' => "2023-12-25",
+                            'Adults' => 2,
+                            'Children' => 1,
+                            'TotalPayment' => "750&euro;"
+                        ],
+
+                        '2' => [
+                            'GuestName' => "Emma Johnson",
+                            'BookingID' => 1002,
+                            'CheckInDate' => "2024-01-05",
+                            'CheckOutDate' => "2024-01-10",
+                            'Adults' => 1,
+                            'Children' => 0,
+                            'TotalPayment' => "500&euro;"
+                        ],
+
+                        '3' => [
+                            'GuestName' => "Sophia Garcia",
+                            'BookingID' => 1003,
+                            'CheckInDate' => "2024-02-15",
+                            'CheckOutDate' => "2024-02-20",
+                            'Adults' => 2,
+                            'Children' => 2,
+                            'TotalPayment' => "1100&euro;"
+                        ]
+                    ];
+                    foreach ($doneReservations as $reservation) {
+                        echo "<hr>";
+                        echo "<strong>Guest name:</strong> " . $reservation['GuestName'] . "<br>";
+                        echo "<strong>Booking ID:</strong> " . $reservation['BookingID'] . "<br>";
+                        echo "<strong>CheckInDate:</strong> " . $reservation['CheckInDate'] . "<br>";
+                        echo "<strong>CheckOutDate:</strong> " . $reservation['CheckOutDate'] . "<br>";
+                        echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
+                        echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
+                        echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
+                        echo "<hr><br>";
+                    }
+                ?>
+                
+                
             </div>
             <div id="upcomingReservations" class="col-md-5 background-light">
                 <h2 class="heading2">Upcoming Reservations</h2>
-                
+                <?php
+                    $upcomingReservations = [
+                        '1' => [
+                            'GuestName' => "Sarah Williams",
+                            'BookingID' => 12345,
+                            'CheckInDate' => "2024-05-01",
+                            'CheckOutDate' => "2024-05-05",
+                            'Adults' => 2,
+                            'Children' => 1,
+                            'TotalPayment' => "800&euro;"
+                        ],
+
+                        '2' => [
+                            'GuestName' => "David Brown",
+                            'BookingID' => 54321,
+                            'CheckInDate' => "2024-04-25",
+                            'CheckOutDate' => "2024-04-30",
+                            'Adults' => 1,
+                            'Children' => 0,
+                            'TotalPayment' => "600&euro;"
+                        ],
+
+                        '3' => [
+                            'GuestName' => "Michael Johnson",
+                            'BookingID' => 98765,
+                            'CheckInDate' => "2024-05-10",
+                            'CheckOutDate' => "2024-05-15",
+                            'Adults' => 3,
+                            'Children' => 2,
+                            'TotalPayment' => "1200&euro;"
+                        ]
+                    ];
+                    foreach ($upcomingReservations as $reservation) {
+                        echo "<hr>";
+                        echo "<strong>Guest name:</strong> " . $reservation['GuestName'] . "<br>";
+                        echo "<strong>Booking ID:</strong> " . $reservation['BookingID'] . "<br>";
+                        echo "<strong>CheckInDate:</strong> " . $reservation['CheckInDate'] . "<br>";
+                        echo "<strong>CheckOutDate:</strong> " . $reservation['CheckOutDate'] . "<br>";
+                        echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
+                        echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
+                        echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
+                        echo "<hr><br>";
+                    }
+                ?>
             </div>
             <div class="col-md-1"></div>
         </div>
