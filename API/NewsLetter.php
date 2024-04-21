@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email using Regex
     if (!preg_match($email_pattern, $email)) {
-        echo "Invalid email address format";
+        echo "Invalid email address format: ";
         echo ($email);
     } else {
         // Email is valid, proceed with further actions

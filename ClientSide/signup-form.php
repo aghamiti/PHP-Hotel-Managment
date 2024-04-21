@@ -19,7 +19,7 @@
     <div class="overlay"></div>
     <div class="container">
 
-<?php 
+    <?php 
 include "../API/db_connection.php";
 
 if(isset($_POST["submit"])){
@@ -41,14 +41,23 @@ if(isset($_POST["submit"])){
             <div class="form-message form-message-error"></div>
             <div class="form-input-group">
                 <input type="text" id="signupUsername" name="signupUsername" class="form-input" autofocus placeholder="Username">
+                <?php if (!empty($_SESSION['signup_errors']['signupUsername'])): ?>
+                    <span class="error-message"><?php echo $_SESSION['signup_errors']['signupUsername']; ?></span>
+                <?php endif; ?>
                 <div class="form-input-error-message"></div>
             </div>
             <div class="form-input-group">
                 <input type="email" name="email" class="form-input" autofocus placeholder="Email adress">
+                <?php if (!empty($_SESSION['signup_errors']['email'])): ?>
+                    <span class="error-message"><?php echo $_SESSION['signup_errors']['email']; ?></span>
+                <?php endif; ?>
                 <div class="form-input-error-message"></div>
             </div>
             <div class="form-input-group">
                 <input type="password" name="password" class="form-input" autofocus placeholder="Password">
+                <?php if (!empty($_SESSION['signup_errors']['password'])): ?>
+                    <span class="error-message"><?php echo $_SESSION['signup_errors']['password']; ?></span>
+                <?php endif; ?>
                 <div class="form-input-error-message"></div>
             </div>
             <div class="form-input-group">

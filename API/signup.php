@@ -61,10 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
     } else {
-        // Errors found, store them in session and redirect back to signup page
+        // Store errors in session
         $_SESSION['signup_errors'] = $errors;
-        header("location: ../ClientSide/signup-form.php"); 
-        exit;
     }
 }
 ?>
