@@ -1,8 +1,80 @@
 <?php
+// Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+// Function to generate the static calendar for a given month and year
+function generateStaticCalendar($month, $year) {
+    $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $firstDayOfWeek = date('w', strtotime("$year-$month-01"));
+
+    echo '<table class="calendar-table">';
+    echo '<tr>';
+    echo '<th>Sun</th>';
+    echo '<th>Mon</th>';
+    echo '<th>Tue</th>';
+    echo '<th>Wed</th>';
+    echo '<th>Thu</th>';
+    echo '<th>Fri</th>';
+    echo '<th>Sat</th>';
+    echo '</tr>';
+    echo '<tr>';
+
+    // Fill empty cells before the first day
+    for ($i = 0; $i < $firstDayOfWeek; $i++) {
+        echo '<td class="empty-cell"></td>';
+    }
+
+    // Output the days for the current month
+    for ($day = 1; $day <= $numDays; $day++) {
+        if (($firstDayOfWeek + $day - 1) % 7 == 0 && $day > 1) {
+            echo '</tr><tr>'; // New row for each week
+        }
+        $dayOfWeek = date('D', strtotime("$year-$month-$day"));
+        echo "<td class='day-cell' title='Day $day'>$day<br><small>$dayOfWeek</small></td>";
+    }
+
+    // Fill empty cells after the last day to complete the row
+    $remainingCells = 7 - (($firstDayOfWeek + $numDays - 1) % 7) - 1;
+    for ($i = 0; $remainingCells > 0; $i++, $remainingCells--) {
+        echo '<td class="empty-cell"></td>';
+    }
+
+    echo '</tr>';
+    echo '</table>';
+}
+
+// Determine the sorting order
+$sortOrder = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'normal'; // 'normal' or 'reverse'
+
+// Generate the list of month options
+$monthOptions = [];
+$startMonth = date('Y-m', strtotime("-6 months"));
+$endMonth = date('Y-m', strtotime("+12 months"));
+
+// Create the array of month options
+$monthIndex = 0;
+for ($i = strtotime($startMonth); $i <= strtotime($endMonth); $i = strtotime('+1 month', $i), $monthIndex++) {
+    $monthOptions[$monthIndex] = [
+        'value' => date('Y-m', $i),
+        'label' => date('F Y', $i),
+    ];
+}
+
+// Sort the month options based on the selected order using ksort and krsort
+if ($sortOrder == 'reverse') {
+    krsort($monthOptions); // Sort by keys in reverse order
+} else {
+    ksort($monthOptions); // Sort by keys in normal order
+}
+
+// Determine the selected month and year
+$selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,37 +111,117 @@ if (session_status() == PHP_SESSION_NONE) {
 </header>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <div class="calendar">
-                <div class="calendar-header">
-                    <h2 id="selectedMonth">April 2024</h2>
-                    <select id="roomSelection" onchange="updateCalendar()">
-                        <option value="room1">Room 1</option>
-                        <option value="room2">Room 2</option>
-                        <!-- Add more rooms as needed -->
-                    </select>
-                    <select id="monthSelection" onchange="updateCalendar()">
-                        <?php
-                        // Generate options for the next 12 months
-                        for ($i = 0; $i < 12; $i++) {
-                            $nextMonth = date('Y-m', strtotime("+" . $i . " months"));
-                            $monthName = date('F Y', strtotime($nextMonth));
-                            echo "<option value=\"$nextMonth\">$monthName</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="calendar-body" id="calendarBody">
-                    <!-- Calendar days will be populated here -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <h1>Calendar of Bookings</h1>
+
+    <!-- Sorting radio buttons for sort order -->
+    <form action="" method="get" class="mb-3">
+        <label for="sortOrder">Sort Order:</label>
+        <input type="radio" name="sort_order" value="normal" <?php if ($sortOrder == 'normal') echo 'checked'; ?>> Normal
+        <input type="radio" name="sort_order" value="reverse" <?php if ($sortOrder == 'reverse') echo 'checked'; ?>> Reverse
+        <input type="submit" value="Apply Sort" class="btn btn-primary">
+
+        <br><br>
+
+        <!-- Dropdown menu for month selection -->
+        <label for="monthSelection">Select Month:</label>
+        <select name="month" id="monthSelection" onchange="this.form.submit()" class="form-select">
+            <?php
+            foreach ($monthOptions as $index => $option) {
+                $selected = ($option['value'] == $selectedMonth) ? 'selected' : '';
+                echo "<option value='{$option['value']}' {$selected}>{$option['label']}</option>";
+            }
+            ?>
+        </select>
+    </form>
+
+    <!-- Generate the calendar for the selected month -->
+    <?php
+    list($year, $month) = explode('-', $selectedMonth);
+    generateStaticCalendar($month, $year);
+    ?>
 </div>
 
+
 <footer>
-    <!-- Footer content -->
+    <div class="row footer-main">
+        <div class="col-md-3 footer-main-opening">
+            <h2>Opening Hours</h2>
+            <p><span class="footer-weekendweekdays">Weekdays:</span> 8:00 AM - 8:00 PM</p>
+            <p><span class="footer-weekendweekdays">Weekends:</span> 9:00 AM - 6:00 PM</p>
+        </div>
+        <div class="col-md-3 footer-main-adress">
+            <h2>Address</h2>
+            <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
+                        target="_blank">
+                        <address style="margin: 0;"><img src="../assets/images/location.png"
+                                                         class="footer-location-icon"/>6036 Richmond Hwy, Alexandria, VA 2230</address>
+                    </a></span></p>
+
+            <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                    (409) 987–5874</a></p>
+            <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
+                                                   class="footer-call-icon">spring@hotel.com</a>
+        </div>
+        <div class="col-md-3 footer-main-newsletter">
+            <script>
+                window.onload = function() {
+                    var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+                    sessionStorage.setItem('formSubmissions', formSubmissions);
+
+                    if (sessionStorage.getItem('submitDisabled')) {
+                        document.getElementById('SubscribeBtn').style.display = 'none';
+                        document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
+                    }
+                };
+
+                function subscribeNewsletter(event) {
+                    event.preventDefault();
+
+                    var emailInput = document.getElementById('emailInput');
+                    var subscribeOutput = document.getElementById('subscribeOutput');
+                    var subscribeButton = document.getElementById('SubscribeBtn');
+                    const subscribeAudio = document.getElementById('SubscribeAudio');
+
+                    if (isValidEmail(emailInput.value)) {
+                        subscribeOutput.textContent = `Thank you for subscribing!`;
+
+
+                        var formSubmissions = parseInt(sessionStorage.getItem('formSubmissions')) || 0;
+                        formSubmissions++;
+                        sessionStorage.setItem('formSubmissions', formSubmissions);
+
+                        // Mshefe buttonin
+                        subscribeButton.style.display = 'none';
+                        sessionStorage.setItem('submitDisabled', 'true');
+
+                        setTimeout(function () {
+                            emailInput.value = '';
+                        }, 3000);
+                    } else {
+                        subscribeOutput.textContent = `Please enter a valid email address.`;
+                    }
+                }
+
+                function isValidEmail(email) {
+                    return email.includes('@');
+                }
+
+                function playAudio() {
+                    subscribeAudio.play();
+                };
+            </script>
+        </div>
+    </div>
+
+    </div>
+    <div class="footer-socials">
+        <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
+                                                                  class="footer-socials-icon"></a>
+        <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
+                                                                 class="footer-socials-icon"></a>
+        <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
+                                                            class="footer-socials-icon"></a>
+    </div>
 </footer>
 
 <button id="backToTopBtn" title="Go to top" onclick="topFunciton()">

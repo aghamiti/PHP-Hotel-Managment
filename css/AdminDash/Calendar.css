@@ -190,6 +190,37 @@ body{
     background-color: #28a745;
 }
 
+/* Calendar styles */
+.calendar-table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-family: Poppins;
+}
+
+.calendar-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    background-color: #f2f2f2;
+}
+
+.calendar-table .day-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+    transition: background-color 0.3s;
+}
+
+.calendar-table .day-cell:hover {
+
+    background-color: #cceeff;
+    /*Highlighted color on hover*/
+}
+
+.calendar-table .empty-cell {
+    padding: 8px;
+    background-color: transparent;
+}
+
 footer{
     margin: 20px auto;
     padding: 15px;
