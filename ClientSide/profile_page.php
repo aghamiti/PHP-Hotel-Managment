@@ -48,28 +48,7 @@
 
         <a id="loginLink" href="profile_page.php">
         <i class="fa-solid fa-user"></i>
-        </a>
-        <h7 id="welcomeMessage" style="display: none;">Welcome <?php echo $username; ?></h7>
-        <script>
-       
-            document.addEventListener("DOMContentLoaded", function() {
-        
-                const loginIcon = document.getElementById("loginIcon");
-                const welcomeMessage = document.getElementById("welcomeMessage");
-
-      
-                function toggleElements() {
-                loginIcon.style.display = (loginIcon.style.display === "none") ? "block" : "none";
-                welcomeMessage.style.display = (welcomeMessage.style.display === "none") ? "block" : "none";
-                }
-                toggleElements(); 
-
-        
-                setTimeout(function() {
-                setTimeout(toggleElements, 2000);
-                }, 2000); 
-            });
-        </script>
+        </a> 
     </nav>
     <div class="carousel-container">
     <div class="dashboard">
