@@ -27,6 +27,9 @@ function sortTotalPayment($a, $b) {
             text-align: center;
             text-decoration: none;
         }
+        .butonat:hover{
+            color: #8f859e;
+        }
     </style>
     <title>Spring Hotel &amp; Spa</title>
 
@@ -72,9 +75,9 @@ function sortTotalPayment($a, $b) {
                 <div class="col-md-12 butonat">
                     <?php
                         echo "<form method='GET'>";
-                        echo "<button type='submit' name='sort' value='asc_payment'>"?><i class="fa-solid fa-sort-up"></i>
+                        echo "<button type='submit' name='sort' value='asc_payment' class='butonat'>"?><i class="fa-solid fa-sort-up"></i>
                     <?php
-                        echo "<button type='submit' name='sort' value='desc_payment'>";?><i class="fa-solid fa-sort-down"></i><?php
+                        echo "<button type='submit' name='sort' value='desc_payment' class='butonat'>";?><i class="fa-solid fa-sort-down"></i><?php
                         echo "</form>";
                         echo "<br>";
                     ?>
@@ -135,7 +138,7 @@ function sortTotalPayment($a, $b) {
                         echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
                         echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
                         echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
-                        echo "<hr><br>";
+                        echo "<hr>";
                     }
       
                 ?>
@@ -194,7 +197,7 @@ function sortTotalPayment($a, $b) {
                         echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
                         echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
                         echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
-                        echo "<hr><br>";
+                        echo "<hr>";
                     }
                 ?>
             </div>
