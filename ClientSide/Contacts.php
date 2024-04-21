@@ -38,9 +38,9 @@ if (isset($_POST['email'])) {
         <div></div>
         <ul>
             <li><a href="./index.php">Home</a></li>
-            <li><a href="./About-Us.html">About Us</a></li>
-            <li><a href="./Contacts.html">Contacts</a></li>
-            <li><a href="./FAQ.html">FAQ</a></li>
+            <li><a href="./About-Us.php">About Us</a></li>
+            <li><a href="./Contacts.php">Contacts</a></li>
+            <li><a href="./FAQ.php">FAQ</a></li>
             <li><a href="./Events.php">Events</a></li>
         </ul>
         <a href="login-signup.html">
