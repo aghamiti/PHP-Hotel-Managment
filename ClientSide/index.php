@@ -15,8 +15,9 @@ if(isset($_COOKIE['font_change_time']) && (time() - $_COOKIE['font_change_time']
 ?>
 
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
 
 ?>
 <?php
