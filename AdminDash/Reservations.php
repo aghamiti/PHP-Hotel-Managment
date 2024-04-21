@@ -12,7 +12,6 @@
     <title>Incoming Reservations - Hotel Admin</title>
     <link rel="stylesheet" href="../css/AdminDash/Reservations.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -27,12 +26,9 @@
         <li><a href="./Messages.php">Inbox</a></li>
         <li><a href="./Reservations.php">Reservations</a></li>
     </ul>
-    <?php if(isset($_SESSION['login_user'])): ?>
-        <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
-        <h7><a href="../API/logout.php">Logout</a></h7>
-    <?php else: ?>
-        <h7><a href="../ClientSide/login-signup.php">Login / Signup</a></h7>
-    <?php endif; ?>
+    <a href="../ClientSide/login-signup.php">
+        <img src="../assets/images/login-icon.png" alt="login-icon">
+    </a>
 </nav>
 
 <header class="header">
@@ -70,47 +66,6 @@
         </div>
     </div>
 </div>
-
-<footer>
-    <div class="row footer-main">
-        <div class="col-md-4 footer-main-opening">
-            <h2>Opening Hours</h2>
-            <p><span class="footer-weekendweekdays">Weekdays:</span> 8:00 AM - 8:00 PM</p>
-            <p><span class="footer-weekendweekdays">Weekends:</span> 9:00 AM - 6:00 PM</p>
-        </div>
-        <div class="col-md-4 footer-main-adress">
-            <h2>Address</h2>
-            <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
-                        target="_blank">
-                        <address style="margin: 0;"><img src="../assets/images/location.png"
-                                                         class="footer-location-icon"/>6036 Richmond Hwy, Alexandria, VA 2230</address>
-                    </a></span></p>
-
-            <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
-                    (409) 987–5874</a></p>
-            <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
-                                                   class="footer-call-icon">spring@hotel.com</a>
-        </div>
-    </div>
-
-    </div>
-    <div class="footer-socials">
-        <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
-                                                                  class="footer-socials-icon"></a>
-        <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
-                                                                 class="footer-socials-icon"></a>
-        <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
-                                                            class="footer-socials-icon"></a>
-    </div>
-</footer>
-
-<button id="backToTopBtn" title="Go to top" onclick="topFunciton()">
-    <img
-            width="30px" height="30px"
-            style="display: flex; align-items: center; justify-content: center;"
-            src="../assets/images/backToTop.png" />
-</button>
-<audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
 
 <!-- Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

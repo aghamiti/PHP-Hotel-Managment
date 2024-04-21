@@ -53,6 +53,7 @@ $monthOptions = [];
 $startMonth = date('Y-m', strtotime("-6 months"));
 $endMonth = date('Y-m', strtotime("+12 months"));
 
+// Create the array of month options
 $monthIndex = 0;
 for ($i = strtotime($startMonth); $i <= strtotime($endMonth); $i = strtotime('+1 month', $i), $monthIndex++) {
     $monthOptions[$monthIndex] = [
@@ -61,7 +62,7 @@ for ($i = strtotime($startMonth); $i <= strtotime($endMonth); $i = strtotime('+1
     ];
 }
 
-// Sort the month options based on the selected order
+// Sort the month options based on the selected order using ksort and krsort
 if ($sortOrder === 'desc') {
     krsort($monthOptions); // Sort by keys in reverse order
 } else {
@@ -79,7 +80,6 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Hotel | Calendar | Admin</title>
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/AdminDash/Calendar.css">
 </head>
@@ -92,7 +92,7 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     <div></div>
     <ul>
         <li><a href="./Calendar.php">Calendar</a></li>
-        <li><a href="./Messages.php">Inbox</li>
+        <li><a href="./Messages.php">Inbox</a></li>
         <li><a href="./Reservations.php">Reservations</a></li>
     </ul>
     <?php if(isset($_SESSION['login_user'])): ?>
@@ -112,8 +112,23 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
 
     <!-- Sorting radio buttons for sort order -->
     <form action="" method="get" class="mb-3 d-flex flex-column align-items-center" style="font-size: 20px; font-family: Poppins;">
+
         <label for="monthSelection" class="form-label">Select Month:</label>
-        <select name="month" id="monthSelection" class="form-select form-select-sm" style="width: 250px; font-size: 20px; font-family: Poppins; text-align: center;" onchange="this.form.submit()">
+        <select
+                name="month"
+                id="monthSelection"
+                class="form-select form-select-sm"
+                style="
+                width: 250px;
+                font-size: 20px;
+                font-family: Poppins;
+                text-align: center;
+                display: inline-block;
+                background-color: transparent;
+                border-color: #8f859e;
+                border-radius: 0.25rem;"
+                onchange="this.form.submit()"
+        >
             <?php
             foreach ($monthOptions as $index => $option) {
                 $selected = ($option['value'] == $selectedMonth) ? 'selected' : '';
@@ -126,11 +141,25 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
             <label class="form-check-label">Sort Months:</label>
         </div>
         <div class="form-check form-check-inline" style="margin-right: 10px;">
-            <input class="form-check-input" type="radio" name="sort_order" value="asc" id="sortAsc" onchange="this.form.submit()" <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'asc') ? 'checked' : ''; ?>>
+            <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sort_order"
+                    value="asc"
+                    id="sortAsc"
+                    onchange="this.form.submit()"
+                <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'asc') ? 'checked' : ''; ?>>
             <label class="form-check-label" for="sortAsc">Oldest</label>
         </div>
         <div class="form-check form-check-inline" style="margin-right: 10px;">
-            <input class="form-check-input" type="radio" name="sort_order" value="desc" id="sortDesc" onchange="this.form.submit()" <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'desc') ? 'checked' : ''; ?>>
+            <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sort_order"
+                    value="desc"
+                    id="sortDesc"
+                    onchange="this.form.submit()"
+                <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'desc') ? 'checked' : ''; ?>>
             <label class="form-check-label" for="sortDesc">Newest</label>
         </div>
     </form>
@@ -142,58 +171,97 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     ?>
 </div>
 
+
 <footer>
-    <div class="footer-main">
-        <div class="col-md-4 footer-main-opening">
+    <div class="row footer-main">
+        <div class="col-md-3 footer-main-opening">
             <h2>Opening Hours</h2>
             <p><span class="footer-weekendweekdays">Weekdays:</span> 8:00 AM - 8:00 PM</p>
             <p><span class="footer-weekendweekdays">Weekends:</span> 9:00 AM - 6:00 PM</p>
         </div>
-        <div class="col-md-4 footer-main-adress">
+        <div class="col-md-3 footer-main-adress">
             <h2>Address</h2>
             <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
-                        target="_blank"><img src="../assets/images/location.png"
-                                             class="footer-location-icon"/>6036 Richmond Hwy, Alexandria, VA 2230</a></span></p>
-            <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1 (409) 987–5874</a></p>
-            <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png" class="footer-call-icon">spring@hotel.com</a>
+                        target="_blank">
+                        <address style="margin: 0;"><img src="../assets/images/location.png"
+                                                         class="footer-location-icon"/>6036 Richmond Hwy, Alexandria, VA 2230</address>
+                    </a></span></p>
+
+            <p><img src="../assets/images/call.png" class="footer-call-icon">Call Us: <a href="tel:+1 (409) 987–5874">+1
+                    (409) 987–5874</a></p>
+            <a href="mailto:spring@hotel.com"><img src="../assets/images/email.png"
+                                                   class="footer-call-icon">spring@hotel.com</a>
+        </div>
+        <div class="col-md-3 footer-main-newsletter">
+            <script>
+                window.onload = function() {
+                    var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+                    sessionStorage.setItem('formSubmissions', formSubmissions);
+
+                    if (sessionStorage.getItem('submitDisabled')) {
+                        document.getElementById('SubscribeBtn').style.display = 'none';
+                        document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
+                    }
+                };
+
+                function subscribeNewsletter(event) {
+                    event.preventDefault();
+
+                    var emailInput = document.getElementById('emailInput');
+                    var subscribeOutput = document.getElementById('subscribeOutput');
+                    var subscribeButton = document.getElementById('SubscribeBtn');
+                    const subscribeAudio = document.getElementById('SubscribeAudio');
+
+                    if (isValidEmail(emailInput.value)) {
+                        subscribeOutput.textContent = `Thank you for subscribing!`;
+
+
+                        var formSubmissions = parseInt(sessionStorage.getItem('formSubmissions')) || 0;
+                        formSubmissions++;
+                        sessionStorage.setItem('formSubmissions', formSubmissions);
+
+                        // Mshefe buttonin
+                        subscribeButton.style.display = 'none';
+                        sessionStorage.setItem('submitDisabled', 'true');
+
+                        setTimeout(function () {
+                            emailInput.value = '';
+                        }, 3000);
+                    } else {
+                        subscribeOutput.textContent = `Please enter a valid email address.`;
+                    }
+                }
+
+                function isValidEmail(email) {
+                    return email.includes('@');
+                }
+
+                function playAudio() {
+                    subscribeAudio.play();
+                };
+            </script>
         </div>
     </div>
+
+    </div>
     <div class="footer-socials">
-        <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png" class="footer-socials-icon"></a>
-        <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png" class="footer-socials-icon"></a>
-        <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png" class="footer-socials-icon"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
+                                                                  class="footer-socials-icon"></a>
+        <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
+                                                                 class="footer-socials-icon"></a>
+        <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
+                                                            class="footer-socials-icon"></a>
     </div>
 </footer>
 
 <button id="backToTopBtn" title="Go to top" onclick="topFunciton()">
-    <img src="../assets/images/backToTop.png" width="30px" height="30px"/>
+    <img
+            width="30px" height="30px"
+            style="display: flex; align-items: center; justify-content: center;"
+            src="../assets/images/backToTop.png" />
 </button>
-<audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mpeg"></audio>
-
-<!-- Scripts -->
-<script>
-    var backToTopButton = document.getElementById("backToTopBtn");
-    var audio = document.getElementById("backToTopSound");
-
-    window.onscroll = function () {
-        var body = document.body;
-        var html = document.documentElement;
-
-        var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollTop, html.offsetHeight);
-
-        if (window.pageYOffset > height / 4) {
-            backToTopButton.style.display = "block";
-        } else {
-            backToTopButton.style.display = "none";
-        }
-    }
-
-    function topFunciton() {
-        window.scrollTo({top: 0, behavior: "smooth"});
-        audio.play();
-    }
-
-</script>
-
+<audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src="../js/AdminDash/Calendar.js"></script>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
