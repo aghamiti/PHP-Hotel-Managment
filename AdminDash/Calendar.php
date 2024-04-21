@@ -63,7 +63,7 @@ for ($i = strtotime($startMonth); $i <= strtotime($endMonth); $i = strtotime('+1
 }
 
 // Sort the month options based on the selected order using ksort and krsort
-if ($sortOrder == 'reverse') {
+if ($sortOrder === 'desc') {
     krsort($monthOptions); // Sort by keys in reverse order
 } else {
     ksort($monthOptions); // Sort by keys in normal order
@@ -74,14 +74,11 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
     <title>Spring Hotel | Calendar | Admin</title>
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/AdminDash/Calendar.css">
@@ -110,21 +107,28 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     <h1>Calendar</h1>
 </header>
 
-<div class="container mt-5">
-    <h1>Calendar of Bookings</h1>
+<div class="container mt-5 ">
+    <h1 style="text-align: center; font-family: Poppins;">Calendar of Bookings</h1>
 
     <!-- Sorting radio buttons for sort order -->
-    <form action="" method="get" class="mb-3">
-        <label for="sortOrder">Sort Order:</label>
-        <input type="radio" name="sort_order" value="normal" <?php if ($sortOrder == 'normal') echo 'checked'; ?>> Normal
-        <input type="radio" name="sort_order" value="reverse" <?php if ($sortOrder == 'reverse') echo 'checked'; ?>> Reverse
-        <input type="submit" value="Apply Sort" class="btn btn-primary">
+    <form action="" method="get" class="mb-3 d-flex flex-column align-items-center" style="font-size: 20px; font-family: Poppins;">
 
-        <br><br>
-
-        <!-- Dropdown menu for month selection -->
-        <label for="monthSelection">Select Month:</label>
-        <select name="month" id="monthSelection" onchange="this.form.submit()" class="form-select">
+        <label for="monthSelection" class="form-label">Select Month:</label>
+        <select
+                name="month"
+                id="monthSelection"
+                class="form-select form-select-sm"
+                style="
+                width: 250px;
+                font-size: 20px;
+                font-family: Poppins;
+                text-align: center;
+                display: inline-block;
+                background-color: transparent;
+                border-color: #8f859e;
+                border-radius: 0.25rem;"
+                onchange="this.form.submit()"
+        >
             <?php
             foreach ($monthOptions as $index => $option) {
                 $selected = ($option['value'] == $selectedMonth) ? 'selected' : '';
@@ -132,6 +136,32 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
             }
             ?>
         </select>
+
+        <div style="margin-top: 20px" class="mb-2">
+            <label class="form-check-label">Sort Months:</label>
+        </div>
+        <div class="form-check form-check-inline" style="margin-right: 10px;">
+            <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sort_order"
+                    value="asc"
+                    id="sortAsc"
+                    onchange="this.form.submit()"
+                <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'asc') ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="sortAsc">Oldest</label>
+        </div>
+        <div class="form-check form-check-inline" style="margin-right: 10px;">
+            <input
+                    class="form-check-input"
+                    type="radio"
+                    name="sort_order"
+                    value="desc"
+                    id="sortDesc"
+                    onchange="this.form.submit()"
+                <?php echo (isset($_GET['sort_order']) && $_GET['sort_order'] === 'desc') ? 'checked' : ''; ?>>
+            <label class="form-check-label" for="sortDesc">Newest</label>
+        </div>
     </form>
 
     <!-- Generate the calendar for the selected month -->

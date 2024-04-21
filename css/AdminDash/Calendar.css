@@ -161,34 +161,6 @@ body{
 
 }
 
-.calendar {
-    border: 1px solid #ccc;
-}
-
-.calendar-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
-
-.calendar-body {
-    padding: 10px;
-}
-
-.day {
-    border: 1px solid #ccc;
-    padding: 10px;
-    height: 100px;
-}
-
-.booked {
-    background-color: #ffc107;
-}
-
-.available {
-    background-color: #28a745;
-}
 
 /* Calendar styles */
 .calendar-table {
