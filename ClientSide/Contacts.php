@@ -1,3 +1,22 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['form_submissions'])) {
+    $_SESSION['form_submissions'] = 0;
+}
+
+
+if (isset($_POST['email'])) {
+    // Rrite numrin e submits ne session
+    $_SESSION['form_submissions']++;
+
+
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,40 +165,57 @@
         </div>
         <div class="col-md-3 footer-main-newsletter">
             <h2>Join our Newsletter</h2>
-            <form method="post" action="../API/NewsLetter.php">
-                    <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput" name="email">
-                    <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                    <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-                    <output id="subscribeOutput" for="emailInput"></output>
-            </form>
+    <form action="" method="post" onsubmit="subscribeNewsletter(event)">
+        <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
+        <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+            <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
+        <?php } ?>
+        <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+        <output id="subscribeOutput" for="emailInput"></output>
+    </form>
 
         <script>
-            function subscribeNewsletter(event) {
-                event.preventDefault(); 
+            window.onload = function() {
+            var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+            sessionStorage.setItem('formSubmissions', formSubmissions);
 
-                var emailInput = document.getElementById('emailInput');
-                var subscribeOutput = document.getElementById('subscribeOutput');
-                var subscribeButton = document.getElementById('SubscribeBtn');
-                const subscribeAudio = document.getElementById('SubscribeAudio');
-                if (isValidEmail(emailInput.value)) {
-
-
-                    subscribeOutput.textContent = `Thank you for subscribing!`;
-                    subscribeButton.style.display = 'none';
-
-
-                    setTimeout(function () {
-                        emailInput.value = '';
-                    }, 3000);
-                } else {
-
-                    subscribeOutput.textContent = `Please enter a valid email address.`;
-                }
+            if (sessionStorage.getItem('submitDisabled')) {
+                document.getElementById('SubscribeBtn').style.display = 'none';
+                document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
             }
+        };
 
-            function isValidEmail(email) {
-                return email.includes('@');
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+
+            var emailInput = document.getElementById('emailInput');
+            var subscribeOutput = document.getElementById('subscribeOutput');
+            var subscribeButton = document.getElementById('SubscribeBtn');
+            const subscribeAudio = document.getElementById('SubscribeAudio');
+
+            if (isValidEmail(emailInput.value)) {
+                subscribeOutput.textContent = `Thank you for subscribing!`;
+
+            
+                var formSubmissions = parseInt(sessionStorage.getItem('formSubmissions')) || 0;
+                formSubmissions++;
+                sessionStorage.setItem('formSubmissions', formSubmissions);
+
+                // Mshefe buttonin
+                subscribeButton.style.display = 'none';
+                sessionStorage.setItem('submitDisabled', 'true');
+
+                setTimeout(function () {
+                    emailInput.value = '';
+                }, 3000);
+            } else {
+                subscribeOutput.textContent = `Please enter a valid email address.`;
             }
+        }
+
+        function isValidEmail(email) {
+            return email.includes('@');
+        }
 
             function playAudio() {
                 subscribeAudio.play();
