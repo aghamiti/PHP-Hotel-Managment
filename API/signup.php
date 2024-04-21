@@ -63,8 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Store errors in session
         $_SESSION['signup_errors'] = $errors;
-        header("location: ../ClientSide/signup-form.php"); 
-
     }
 }
 ?>
