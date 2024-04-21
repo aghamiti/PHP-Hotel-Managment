@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $_SESSION['signup_success'] = "New record created successfully";
-            header("location: ../ClientSide/index.php"); 
+            header("location: ../ClientSide/login-signup.php"); 
             exit;
         } else {
             $_SESSION['signup_error'] = "Error creating account. Please try again.";

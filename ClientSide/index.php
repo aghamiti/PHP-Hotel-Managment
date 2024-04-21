@@ -144,10 +144,10 @@ if (isset($_POST['email'])) {
         <li><a href="./Events.php">Events</a></li>
         </ul>
         <?php if(isset($_SESSION['login_user'])): ?>
-            <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
+            <h7><a href="profile_page.php">Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></a></h7>
             <h7><a href="../API/logout.php">Logout</a></h7>
         <?php else: ?>
-            <li><a href="./login-signup.php">Login / Signup</a></li>
+            <a href="./login-signup.php"><img src="../assets/images/login-icon.png" alt=""></a>
         <?php endif; ?>
     
 </nav>
