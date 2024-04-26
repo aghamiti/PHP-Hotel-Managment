@@ -293,7 +293,7 @@ if (isset($_POST['email'])) {
                 </div>
             </div>
 `
-            <!-- Modali -->
+            <!-- Modali  -->
             <div id="myModal" class="modal">
 
                 <img class="close-btn" src="../assets/images/close-video.png" width="auto" height="auto" onclick="closeModal()"/>
