@@ -126,6 +126,19 @@ if (isset($_POST['email'])) {
         .close-btn:hover{
             background-color: #ffffff3d;
         }
+        #roomSlideshow {
+    margin-top: 20px;
+}
+
+.carousel .carousel-inner img {
+    width: 100%;
+    height: auto;
+}
+.carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
+
     </style>
 </head>
 
@@ -228,6 +241,46 @@ if (isset($_POST['email'])) {
         </div>
 
         </section>
+
+        <!-- Carousel Slideshow (Initially Hidden) -->
+        <section id="roomSlideshow" class="carousel slide" data-bs-ride="carousel" style="display: none;">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#roomSlideshow" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#roomSlideshow" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#roomSlideshow" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../assets/images/indoor-pool.jpg" class="d-block w-100" alt="Room 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Deluxe Room</h5>
+                    <p>Our Deluxe Room offers a comfortable king-sized bed, modern amenities, and a stunning view of the city skyline.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/indoor-pool.jpg" class="d-block w-100" alt="Room 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Standard Room</h5>
+                    <p>The Standard Room provides cozy accommodation with a queen-sized bed and all essential facilities.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../assets/images/indoor-pool.jpg" class="d-block w-100" alt="Room 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Suite</h5>
+                    <p>Experience luxury in our Suite, featuring a separate living area, a king-sized bed, and a spacious bathroom.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#roomSlideshow" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#roomSlideshow" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
 
         <section class="abt-us-home">
 
@@ -498,4 +551,14 @@ if (isset($_POST['email'])) {
     const closeModal2 = () => {
         document.getElementById('myModal2').style.display = 'none';
     }
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Show the carousel slideshow
+            document.getElementById('roomSlideshow').style.display = 'block';
+
+            // Optionally, you can scroll to the carousel
+            document.getElementById('roomSlideshow').scrollIntoView({ behavior: 'smooth' });
+        });
+
   </script>
