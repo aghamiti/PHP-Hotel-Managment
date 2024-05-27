@@ -252,7 +252,7 @@ if (isset($_POST['submit'])) {
                 <h2>Address</h2>
                 <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
                             target="_blank">
-                            <address style="margin: 0;"><img src="assets\images\location.png"
+                            <address style="margin: 0;"><img src="../assets/images/location.png"
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
@@ -263,19 +263,19 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-md-3 footer-main-newsletter">
             <h2>Join our Newsletter</h2>
-    <form action="" method="post" onsubmit="subscribeNewsletter(event)">
-        <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-        <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
-            <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-        <?php } ?>
-        <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-        <output id="subscribeOutput" for="emailInput"></output>
-    </form>
+        <form id="newsletterForm" method="post" action="../API/newsletter.php" onsubmit="subscribeNewsletter(event)">
+            <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
+            <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+                <button type="submit" class="footer-newsletter-subscribebtn" id="subscribeBtn" onclick="playAudio()">Subscribe</button>
+            <?php } ?>
+            <audio id="subscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+            <output id="subscribeOutput" for="emailInput"></output>
+        </form>
 
             <script>
-                window.onload = function() {
-            var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
-            sessionStorage.setItem('formSubmissions', formSubmissions);
+            window.onload = function() {
+                var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+                sessionStorage.setItem('formSubmissions', formSubmissions);
 
             if (sessionStorage.getItem('submitDisabled')) {
                 document.getElementById('SubscribeBtn').style.display = 'none';
@@ -283,63 +283,54 @@ if (isset($_POST['submit'])) {
             }
         };
 
-        function subscribeNewsletter(event) {
-            event.preventDefault();
+            function subscribeNewsletter(event) {
+                event.preventDefault();
 
-            var emailInput = document.getElementById('emailInput');
-            var subscribeOutput = document.getElementById('subscribeOutput');
-            var subscribeButton = document.getElementById('SubscribeBtn');
-            const subscribeAudio = document.getElementById('SubscribeAudio');
+                var form = document.getElementById('newsletterForm');
+                var formData = new FormData(form);
 
-            if (isValidEmail(emailInput.value)) {
-                subscribeOutput.textContent = `Thank you for subscribing!`;
-
-            
-                var formSubmissions = parseInt(sessionStorage.getItem('formSubmissions')) || 0;
-                formSubmissions++;
-                sessionStorage.setItem('formSubmissions', formSubmissions);
-
-                // Mshefe buttonin
-                subscribeButton.style.display = 'none';
-                sessionStorage.setItem('submitDisabled', 'true');
-
-                setTimeout(function () {
-                    emailInput.value = '';
-                }, 3000);
-            } else {
-                subscribeOutput.textContent = `Please enter a valid email address.`;
-            }
-        }
-
-        function isValidEmail(email) {
-            return email.includes('@');
-        }
-
-
-                function playAudio() {
-                    subscribeAudio.play();
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../API/newsletter.php', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Handle successful response
+                            var response = xhr.responseText;
+                            var subscribeOutput = document.getElementById('subscribeOutput');
+                            subscribeOutput.textContent = response;
+                            form.reset();
+                        } else {
+                            // Handle error response
+                            console.error('Error:', xhr.status);
+                        }
+                    }
                 };
+                xhr.send(formData);
+            }
+
+            function playAudio() {
+                subscribeAudio.play();
+            };
             </script>
             </div>
             </div>
             
         </div>
         <div class="footer-socials">
-            <a href="https://www.instagram.com/" target="_blank"><img src="assets\images\instagram.png"
+            <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
                     class="footer-socials-icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="assets\images\facebook.png"
+            <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
                     class="footer-socials-icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="assets\images\twitter.png"
+            <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
                     class="footer-socials-icon"></a>
         </div>
-    </footer>       
-
-        <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px" style="display: flex; align-items: center; justify-content: center;" src="/assets/images/backToTop.png"/></button>
-
-        
-    <script src="../js/ClientSide/FAQ.js"></script>
-    <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-
+    </footer>         
+    
+    <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
+            style="display: flex; align-items: center; justify-content: center;"
+            src="../assets/images/backToTop.png" /></button>
+    <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src="../js/ClientSide/FAQ.js"></script>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

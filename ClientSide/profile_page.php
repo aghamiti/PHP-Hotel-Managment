@@ -202,7 +202,7 @@ function sortTotalPayment($a, $b) {
                 <h2>Address</h2>
                 <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
                             target="_blank">
-                            <address style="margin: 0;"><img src="assets\images\location.png"
+                            <address style="margin: 0;"><img src="../assets/images/location.png"
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
@@ -212,62 +212,74 @@ function sortTotalPayment($a, $b) {
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
-                <h2>Join our Newsletter</h2>
-            <form onsubmit="subscribeNewsletter(event)">
-                <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-                <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-
-                <output id="subscribeOutput" for="emailInput"></output>
-            </form>
+            <h2>Join our Newsletter</h2>
+        <form id="newsletterForm" method="post" action="../API/newsletter.php" onsubmit="subscribeNewsletter(event)">
+            <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
+            <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+                <button type="submit" class="footer-newsletter-subscribebtn" id="subscribeBtn" onclick="playAudio()">Subscribe</button>
+            <?php } ?>
+            <audio id="subscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+            <output id="subscribeOutput" for="emailInput"></output>
+        </form>
 
             <script>
-                function subscribeNewsletter(event) {
-                    event.preventDefault(); 
+            window.onload = function() {
+                var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+                sessionStorage.setItem('formSubmissions', formSubmissions);
 
-                    var emailInput = document.getElementById('emailInput');
-                    var subscribeOutput = document.getElementById('subscribeOutput');
-                    var subscribeButton = document.getElementById('SubscribeBtn');
-                    const subscribeAudio = document.getElementById('SubscribeAudio');
-                    if (isValidEmail(emailInput.value)) {
+            if (sessionStorage.getItem('submitDisabled')) {
+                document.getElementById('SubscribeBtn').style.display = 'none';
+                document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
+            }
+        };
 
+            function subscribeNewsletter(event) {
+                event.preventDefault();
 
-                        subscribeOutput.textContent = `Thank you for subscribing!`;
-                        subscribeButton.style.display = 'none';
+                var form = document.getElementById('newsletterForm');
+                var formData = new FormData(form);
 
-
-                        setTimeout(function () {
-                            emailInput.value = '';
-                        }, 3000);
-                    } else {
-
-                        subscribeOutput.textContent = `Please enter a valid email address.`;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../API/newsletter.php', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Handle successful response
+                            var response = xhr.responseText;
+                            var subscribeOutput = document.getElementById('subscribeOutput');
+                            subscribeOutput.textContent = response;
+                            form.reset();
+                        } else {
+                            // Handle error response
+                            console.error('Error:', xhr.status);
+                        }
                     }
-                }
-
-                function isValidEmail(email) {
-                    return email.includes('@');
-                }
-
-                function playAudio() {
-                    subscribeAudio.play();
                 };
+                xhr.send(formData);
+            }
+
+            function playAudio() {
+                subscribeAudio.play();
+            };
             </script>
             </div>
             </div>
             
         </div>
         <div class="footer-socials">
-            <a href="https://www.instagram.com/" target="_blank"><img src="assets\images\instagram.png"
+            <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
                     class="footer-socials-icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="assets\images\facebook.png"
+            <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
                     class="footer-socials-icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="assets\images\twitter.png"
+            <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
                     class="footer-socials-icon"></a>
         </div>
-        <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
-            src="../assets/images/backToTop.png" /></button>-
-        <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </footer>
+    </footer>         
+    
+    <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
+            style="display: flex; align-items: center; justify-content: center;"
+            src="../assets/images/backToTop.png" /></button>
+    <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
