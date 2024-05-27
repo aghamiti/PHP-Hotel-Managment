@@ -4,6 +4,26 @@ function sortTotalPayment($a, $b) {
     $paymentB = intval(str_replace(['&euro;', ','], ['', ''], $b['TotalPayment']));
     return $paymentA <=> $paymentB;
 }
+
+    session_start();
+        include_once '../API/db_connection.php';//Including the connection to the database
+
+        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+
+        $user_id = mysqli_real_escape_string($conn, $user_id);
+
+        $sql = "SELECT * FROM Bookings"; //Query nderrohet kur funksionalizohen dhe nderrohen pjeset tjera
+        $sql1 = "SELECT Price FROM Rooms";  
+
+        $result = mysqli_query($conn, $sql); 
+        $result1 = mysqli_query($conn, $sql1); 
+
+        $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $prices = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+        
+        mysqli_free_result($result);
+        mysqli_free_result($result1);
+        mysqli_close($conn);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +37,15 @@ function sortTotalPayment($a, $b) {
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script defer src="../assets/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <style>
+        .atributet{
+            font-size: 19px;
+            font-family: 'Poppins';
+            font-style: oblique;
+            color: #8f859e;
+        }
+        .atributet1{
+            color: black;
+        }
         .heading2{
             text-align: center; 
             font-family: 'Poppins'; 
@@ -52,26 +81,36 @@ function sortTotalPayment($a, $b) {
 
         <a id="loginLink" href="profile_page.php">
         <i class="fa-solid fa-user"></i>
-        </a> 
+        </a>
+        <h7 id="welcomeMessage" style="display: none;">Welcome <?php echo $username; ?></h7>
+        <script>
+       
+            document.addEventListener("DOMContentLoaded", function() {
+        
+                const loginIcon = document.getElementById("loginIcon");
+                const welcomeMessage = document.getElementById("welcomeMessage");
+
+      
+                function toggleElements() {
+                loginIcon.style.display = (loginIcon.style.display === "none") ? "block" : "none";
+                welcomeMessage.style.display = (welcomeMessage.style.display === "none") ? "block" : "none";
+                }
+                toggleElements(); 
+
+        
+                setTimeout(function() {
+                setTimeout(toggleElements, 2000);
+                }, 2000); 
+            });
+        </script>
     </nav>
     <div class="carousel-container">
     <div class="dashboard">
         <br>
-        <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Reservation Dashboard</h1></table>
+        <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Your Reservation Dashboard</h1></table>
         <br>
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <h2  class="heading2">Past Reservations</h2>
-                <br>
-            </div>
-            <div class="col-md-5">
-                <h2 class="heading2">Upcoming Reservations</h2>
-                <br>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row">
+            <div class="row">
                 <div class="col-md-12 butonat">
                     <?php
                         echo "<form method='GET'>";
@@ -82,125 +121,72 @@ function sortTotalPayment($a, $b) {
                         echo "<br>";
                     ?>
                 </div>
-        </div>
-        <div class="row">
+            </div>
+<?php
+            foreach ($bookings as &$booking) {
+            $checkInDate = strtotime($booking['CheckInDate']);
+            $checkOutDate = strtotime($booking['CheckOutDate']);
+            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment
+            $booking['TotalPayment'] = $totalPayment;
+        }
+            unset($booking);
+
+        if (isset($_GET['sort'])) {
+            if ($_GET['sort'] == 'asc_payment') {
+                usort($bookings, 'sortTotalPayment');
+            } elseif ($_GET['sort'] == 'desc_payment') {
+                usort($bookings, function($a, $b) {
+                return $b['TotalPayment'] <=> $a['TotalPayment'];
+                });
+            }   
+        }
+?>
+?>
             <div class="col-md-1"></div>
             <div id="doneReservations" class="col-md-5 background-light">
-                <?php
-                $doneReservations = [
-                        '1' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 1001,
-                            'CheckInDate' => "2023-12-20",
-                            'CheckOutDate' => "2023-12-25",
-                            'Adults' => 2,
-                            'Children' => 1,
-                            'TotalPayment' => "750&euro;"
-                        ],
-
-                        '2' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 1002,
-                            'CheckInDate' => "2024-01-05",
-                            'CheckOutDate' => "2024-01-10",
-                            'Adults' => 1,
-                            'Children' => 0,
-                            'TotalPayment' => "500&euro;"
-                        ],
-
-                        '3' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 1003,
-                            'CheckInDate' => "2024-02-15",
-                            'CheckOutDate' => "2024-02-20",
-                            'Adults' => 2,
-                            'Children' => 2,
-                            'TotalPayment' => "1100&euro;"
-                        ]
-                    ];
-                    
-                    
-                    if (isset($_GET['sort'])) {
-                        $sortOrder = $_GET['sort'];
-                        if ($sortOrder === 'asc_payment') {
-                            uasort($doneReservations, 'sortTotalPayment');
-                        } elseif ($sortOrder === 'desc_payment') {
-                            uasort($doneReservations, 'sortTotalPayment');
-                            $doneReservations = array_reverse($doneReservations);
-                        }
-                    }
-                    foreach ($doneReservations as $reservation) {
-                        echo "<hr>";
-                        echo "<strong>Guest name:</strong> " . $reservation['GuestName'] . "<br>";
-                        echo "<strong>Booking ID:</strong> " . $reservation['BookingID'] . "<br>";
-                        echo "<strong>CheckInDate:</strong> " . $reservation['CheckInDate'] . "<br>";
-                        echo "<strong>CheckOutDate:</strong> " . $reservation['CheckOutDate'] . "<br>";
-                        echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
-                        echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
-                        echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
-                        echo "<hr>";
-                    }
-      
-                ?>
-                
-                
+                <h2  class="heading2">Past Reservations</h2>
+                <?php foreach ($bookings as $booking) {
+                        $checkOutDate = strtotime($booking['CheckOutDate']);
+                        if ($checkOutDate < time()) { 
+                            $checkInDate = strtotime($booking['CheckInDate']);
+                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                        <hr>
+                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
+                        <hr>
+                    <?php }
+                } ?>
             </div>
+            
             <div id="upcomingReservations" class="col-md-5 background-light">
-                <?php
-                    $upcomingReservations = [
-                        '1' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 12345,
-                            'CheckInDate' => "2024-05-01",
-                            'CheckOutDate' => "2024-05-05",
-                            'Adults' => 2,
-                            'Children' => 1,
-                            'TotalPayment' => "800&euro;"
-                        ],
-
-                        '2' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 54321,
-                            'CheckInDate' => "2024-04-25",
-                            'CheckOutDate' => "2024-04-30",
-                            'Adults' => 1,
-                            'Children' => 0,
-                            'TotalPayment' => "600&euro;"
-                        ],
-
-                        '3' => [
-                            'GuestName' => "James Bond",
-                            'BookingID' => 98765,
-                            'CheckInDate' => "2024-05-10",
-                            'CheckOutDate' => "2024-05-15",
-                            'Adults' => 3,
-                            'Children' => 2,
-                            'TotalPayment' => "1200&euro;"
-                        ]
-                    ];
+                <h2 class="heading2">Upcoming Reservations</h2>
+                <?php foreach ($bookings as $booking) {
                     
-                    if (isset($_GET['sort'])) {
-                        $sortOrder1 = $_GET['sort'];
-                        if ($sortOrder1 === 'asc_payment') {
-                            uasort($upcomingReservations, 'sortTotalPayment');
-                        } elseif ($sortOrder1 === 'desc_payment') {
-                            uasort($upcomingReservations, 'sortTotalPayment');
-                            $upcomingReservations = array_reverse($upcomingReservations);
-                        }
-                    }
-                    foreach ($upcomingReservations as $reservation) {
-                        echo "<hr>";
-                        echo "<strong>Guest name:</strong> " . $reservation['GuestName'] . "<br>";
-                        echo "<strong>Booking ID:</strong> " . $reservation['BookingID'] . "<br>";
-                        echo "<strong>CheckInDate:</strong> " . $reservation['CheckInDate'] . "<br>";
-                        echo "<strong>CheckOutDate:</strong> " . $reservation['CheckOutDate'] . "<br>";
-                        echo "<strong>Adults:</strong> " . $reservation['Adults'] . "<br>";
-                        echo "<strong>Children:</strong> " . $reservation['Children'] . "<br>";
-                        echo "<strong>TotalPayment:</strong> " . $reservation['TotalPayment'] . "<br>";
-                        echo "<hr>";
-                    }
-                ?>
+                        $checkOutDate = strtotime($booking['CheckOutDate']);
+                        if ($checkOutDate >= time()) { 
+                            $checkInDate = strtotime($booking['CheckInDate']);
+                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                        <hr>
+                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
+                        <hr>
+                    <?php }
+                } ?>
             </div>
+            
             <div class="col-md-1"></div>
         </div>
     </div>
@@ -216,7 +202,7 @@ function sortTotalPayment($a, $b) {
                 <h2>Address</h2>
                 <p><span><a href="https://www.google.com/maps/search/6036+Richmond+Hwy,+Alexandria,+VA+2230/@38.7860603,-77.0740174,16.25z?entry=ttu"
                             target="_blank">
-                            <address style="margin: 0;"><img src="assets\images\location.png"
+                            <address style="margin: 0;"><img src="../assets/images/location.png"
                                     class="footer-location-icon">6036 Richmond Hwy, Alexandria, VA 2230</address>
                         </a></span></p>
     
@@ -226,62 +212,74 @@ function sortTotalPayment($a, $b) {
                         class="footer-call-icon">spring@hotel.com</a>
             </div>
             <div class="col-md-3 footer-main-newsletter">
-                <h2>Join our Newsletter</h2>
-            <form onsubmit="subscribeNewsletter(event)">
-                <input type="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-                <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-                <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
-
-                <output id="subscribeOutput" for="emailInput"></output>
-            </form>
+            <h2>Join our Newsletter</h2>
+        <form id="newsletterForm" method="post" action="../API/newsletter.php" onsubmit="subscribeNewsletter(event)">
+            <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
+            <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+                <button type="submit" class="footer-newsletter-subscribebtn" id="subscribeBtn" onclick="playAudio()">Subscribe</button>
+            <?php } ?>
+            <audio id="subscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
+            <output id="subscribeOutput" for="emailInput"></output>
+        </form>
 
             <script>
-                function subscribeNewsletter(event) {
-                    event.preventDefault(); 
+            window.onload = function() {
+                var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
+                sessionStorage.setItem('formSubmissions', formSubmissions);
 
-                    var emailInput = document.getElementById('emailInput');
-                    var subscribeOutput = document.getElementById('subscribeOutput');
-                    var subscribeButton = document.getElementById('SubscribeBtn');
-                    const subscribeAudio = document.getElementById('SubscribeAudio');
-                    if (isValidEmail(emailInput.value)) {
+            if (sessionStorage.getItem('submitDisabled')) {
+                document.getElementById('SubscribeBtn').style.display = 'none';
+                document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
+            }
+        };
 
+            function subscribeNewsletter(event) {
+                event.preventDefault();
 
-                        subscribeOutput.textContent = `Thank you for subscribing!`;
-                        subscribeButton.style.display = 'none';
+                var form = document.getElementById('newsletterForm');
+                var formData = new FormData(form);
 
-
-                        setTimeout(function () {
-                            emailInput.value = '';
-                        }, 3000);
-                    } else {
-
-                        subscribeOutput.textContent = `Please enter a valid email address.`;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../API/newsletter.php', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Handle successful response
+                            var response = xhr.responseText;
+                            var subscribeOutput = document.getElementById('subscribeOutput');
+                            subscribeOutput.textContent = response;
+                            form.reset();
+                        } else {
+                            // Handle error response
+                            console.error('Error:', xhr.status);
+                        }
                     }
-                }
-
-                function isValidEmail(email) {
-                    return email.includes('@');
-                }
-
-                function playAudio() {
-                    subscribeAudio.play();
                 };
+                xhr.send(formData);
+            }
+
+            function playAudio() {
+                subscribeAudio.play();
+            };
             </script>
             </div>
             </div>
             
         </div>
         <div class="footer-socials">
-            <a href="https://www.instagram.com/" target="_blank"><img src="assets\images\instagram.png"
+            <a href="https://www.instagram.com/" target="_blank"><img src="../assets/images/instagram.png"
                     class="footer-socials-icon"></a>
-            <a href="https://www.facebook.com/" target="_blank"><img src="assets\images\facebook.png"
+            <a href="https://www.facebook.com/" target="_blank"><img src="../assets/images/facebook.png"
                     class="footer-socials-icon"></a>
-            <a href="https://twitter.com/" target="_blank"><img src="assets\images\twitter.png"
+            <a href="https://twitter.com/" target="_blank"><img src="../assets/images/twitter.png"
                     class="footer-socials-icon"></a>
         </div>
-        <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
-            src="../assets/images/backToTop.png" /></button>-
-        <audio id="backToTopSound" src="assets\audio\whoosh.mp3" type="audio/mp3"></audio>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </footer>
+    </footer>         
+    
+    <button id="backToTopBtn" title="Go to top" onclick="topFunciton()"><img width="30px" height="30px"
+            style="display: flex; align-items: center; justify-content: center;"
+            src="../assets/images/backToTop.png" /></button>
+    <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

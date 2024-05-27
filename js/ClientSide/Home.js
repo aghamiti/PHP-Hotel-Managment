@@ -1,7 +1,4 @@
-
-
-   // -------------------------- Butoni back to top --------------------------
-   document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     // Merr butonin
     const mybutton = document.getElementById("backToTopBtn");
     const buttonAudio = document.getElementById('backToTopSound')
@@ -30,7 +27,7 @@
     };
 });
 
-// -------------------------- Validimi i formes per rezervim --------------------------
+// Validimi i formes per rezervim
 function validateDates() {
     try {
         // Merr vlerat e check-in dhe check-out
@@ -92,41 +89,35 @@ const validateAdults = () => {
     }
 };
 
-// -------------------------- Marrja e te dhenave nga forma per rezervim --------------------------
+// Marrja e te dhenave nga forma per rezervim
+document.getElementById("bookingForm").addEventListener("submit", (e) => {
+    e.preventDefault(); // Parandalo formen te dergoje te dhenat tradicionalisht
 
-document.getElementById("myForm").addEventListener("submit", (e) => {
-    e.preventDefault();
+    // Serialize form data
+    const formData = new FormData(document.getElementById('bookingForm'));
 
-    // Marrim te dhenat nga forma
-    let fullName = document.querySelector('input[name="Full-Name"]').value;
-    let checkInDate = document.querySelector('input[name="Check-In"]').value;
-    let checkOutDate = document.querySelector('input[name="Check-Out"]').value;
-    let adults = document.querySelector('select[name="Adults"]').value;
-    let children = document.querySelector('select[name="Children"]').value;
-
-    // Krijimi i objektit me te dhenat e formes
-    const formData = {
-      fullName: fullName,
-      checkInDate: checkInDate,
-      checkOutDate: checkOutDate,
-      adults: adults,
-      children: children
+    // Send AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../API/BookARoom.php', true);
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Request was successful
+            console.log(xhr.responseText); // Log response from the server
+            // You can optionally handle the response here, such as displaying a success message
+        } else {
+            // Request failed
+            console.error('Error:', xhr.statusText);
+            // You can handle errors here, such as displaying an error message to the user
+        }
     };
+    xhr.onerror = function () {
+        console.error('Request failed');
+        // You can handle errors here, such as displaying an error message to the user
+    };
+    xhr.send(formData); // Send form data
+});
 
-    let formDataJSON = JSON.stringify(formData);
-
-    localStorage.setItem('bookingData', formDataJSON);
-
-    console.log("Booking Data:", formData);
-    console.log("Booking Data(JSON):", formDataJSON);
-
-    
-  });
-
-
-
-
-// -------------------------- Butoni qe ridirekton tek booking form --------------------------
+// Butoni qe ridirekton tek booking form
 const scrollToElement = () => {
     const destinacioniElement = document.getElementById('booking');
 
@@ -136,8 +127,7 @@ const scrollToElement = () => {
     }
 };
 
-// -------------------------- Ridirektimi ne klikimin e blogut --------------------------
-
+// Ridirektimi ne klikimin e blogut
 function LinkObject(linkId, linkUrl) {
     this.linkId = linkId; //id e div-it qe do te klikohet
     this.linkUrl = linkUrl; // url-ja e linkut qe deshirojme qe te vizitojme
@@ -159,6 +149,3 @@ const link3 = new LinkObject('artikulli3', 'https://traveltriangle.com/blog/hote
 link1.setupClickListener();
 link2.setupClickListener();
 link3.setupClickListener();
-
-
-

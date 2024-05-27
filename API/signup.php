@@ -1,9 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
 include 'db_connection.php'; // Database connection
 
-session_start(); 
+session_start();
 
 // Function to validate email
 function validateEmail($email) {
@@ -16,7 +14,7 @@ function validatePassword($password) {
     return preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     $username = mysqli_real_escape_string($conn, $_POST['signupUsername']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -52,19 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssis", $username, $email, $password_hashed, $newsletter, $userRole);
 
         if ($stmt->execute()) {
-            $_SESSION['signup_success'] = "New record created successfully";
-            header("location: ../ClientSide/login-signup.php"); 
-            exit;
+            echo "success"; // Return success message
         } else {
-            $_SESSION['signup_error'] = "Error creating account. Please try again.";
-            header("location: ../ClientSide/signup-form.php"); 
-            exit;
+            echo "Error creating account. Please try again.";
         }
     } else {
-        // Errors found, store them in session and redirect back to signup page
-        $_SESSION['signup_errors'] = $errors;
-        header("location: ../ClientSide/signup-form.php"); 
-        exit;
+        // Errors found, return them as JSON
+        echo json_encode($errors);
     }
 }
 ?>
