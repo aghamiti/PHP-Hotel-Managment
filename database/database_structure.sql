@@ -3,7 +3,7 @@ create database hotel_database;
 use hotel_database;
 
 CREATE TABLE rooms (
-    RoomID INT PRIMARY KEY,
+    RoomID INT PRIMARY KEY AUTO_INCREMENT,
     RoomNumber VARCHAR(10),
     RoomType VARCHAR(50),
     Description TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE rooms (
 );
 
 CREATE TABLE Bookings (
-    BookingID INT PRIMARY KEY,
+    BookingID INT PRIMARY KEY AUTO_INCREMENT,
     RoomID INT,
     GuestName VARCHAR(100),
     CheckInDate DATE,
@@ -22,7 +22,7 @@ CREATE TABLE Bookings (
 );
 
 CREATE TABLE BlogPosts (
-    PostID INT PRIMARY KEY,
+    PostID INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(255),
     Content TEXT,
     ImageURL VARCHAR(255),
@@ -30,13 +30,13 @@ CREATE TABLE BlogPosts (
 );
 
 CREATE TABLE NewsletterSubscribers (
-    SubscriberID INT PRIMARY KEY,
+    SubscriberID INT PRIMARY KEY AUTO_INCREMENT,
     Email VARCHAR(255),
     SubscriptionDate DATE
 );
 
 CREATE TABLE Users (
-    UserID INT PRIMARY KEY,
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
     Username VARCHAR(100),
     Email VARCHAR(255),
     Password VARCHAR(255),
@@ -46,7 +46,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE contact_us (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(255) NOT NULL,
