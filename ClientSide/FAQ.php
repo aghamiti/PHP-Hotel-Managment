@@ -7,14 +7,29 @@ if (!isset($_SESSION['form_submissions'])) {
     $_SESSION['form_submissions'] = 0;
 }
 
-
 if (isset($_POST['email'])) {
-    // Rrite numrin e submits ne session
     $_SESSION['form_submissions']++;
-
-
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit;
+}
+
+// Initialize variables for the calculator
+$people = isset($_POST['people']) ? intval($_POST['people']) : 0;
+$nights = isset($_POST['nights']) ? intval($_POST['nights']) : 0;
+$totalCost = 0;
+$error = '';
+
+// Check if form submitted and calculate total cost
+if (isset($_POST['submit'])) {
+    try {
+        if ($people <= 0 || $nights <= 0) {
+            throw new Exception("Numri i personave DHE numri i neteve duhet te jene me te medheje ose te barabarte me 1!");
+        }
+
+        $totalCost = $people * $nights * 75; // 75 euros per person per night
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -55,6 +70,42 @@ if (isset($_POST['email'])) {
         <p><a href="/">Home</a>&rarr;<b>FAQ</b></p>
     </header> 
 
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <h2>Calculate Cost</h2>
+    <div class="form-group">
+        <label for="people">Number of People:</label>
+        <input type="number" id="people" name="people" class="form-control" value="<?php echo $people; ?>" required>
+    </div>
+    <div class="form-group">
+        <label for="nights">Number of Nights:</label>
+        <input type="number" id="nights" name="nights" class="form-control" value="<?php echo $nights; ?>" required>
+    </div>
+    <button type="submit" class="btn btn-primary" name="submit">Calculate</button>
+</form>
+
+<!-- Display Total Cost or Error -->
+<?php if (isset($_POST['submit'])) : ?>
+    <?php if (!empty($error)) : ?>
+        <div class="alert alert-danger mt-3" role="alert">
+            <?php echo $error; ?>
+        </div>
+    <?php elseif ($totalCost > 0) : ?>
+        <div class="alert alert-success mt-3" role="alert">
+            Total Cost: <?php echo $totalCost; ?> euros
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<!-- Display Total Cost or Error -->
+<?php if (!empty($error)) : ?>
+    <div class="alert alert-danger mt-3" role="alert">
+        <?php echo $error; ?>
+    </div>
+<?php elseif ($totalCost > 0) : ?>
+    <div class="alert alert-success mt-3" role="alert">
+        Total Cost: <?php echo $totalCost; ?> euros
+    </div>
+<?php endif; ?>
 
     <ul class="parent-list">
         <li>
