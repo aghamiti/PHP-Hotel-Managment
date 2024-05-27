@@ -3,20 +3,43 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['form_submissions'])) {
-    $_SESSION['form_submissions'] = 0;
+// Lavishly crafted error handler function
+function errorHandler($errno, $errstr, $errfile, $errline) {
+    // Exquisitely customized error message in Albanian
+    $errorMessage = "Gabim: Një kohë e rrallë, adresa e email-it nuk është në formatin e duhur.";
+
+    // Utterly breathtaking output of the error message
+    echo "<script>alert('" . $errorMessage . "');</script>";
 }
 
+// Magnificently set the error handler
+set_error_handler("errorHandler");
 
-if (isset($_POST['email'])) {
-    // Rrite numrin e submits ne session
-    $_SESSION['form_submissions']++;
+// Admire the majesty of form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
+    try {
+        // Gently caress the email format with validation
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            // A tragic revelation, a PHP error is triggered
+            trigger_error("Invalid email format", E_USER_ERROR);
+        }
 
+        // Should the stars align, proceed with form submission
+        // A modest increment to the form submission counter in session
+        $_SESSION['form_submissions']++;
 
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
+        // Swiftly navigate back to the same page after form submission
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+    } catch (Exception $e) {
+        // Tenderly handle any exceptions here
+        // The delicate whisper of a customized error message
+        echo "<script>alert('Gabim: Adresa e email-it nuk është në formatin e duhur.');</script>";
+    }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,62 +236,14 @@ if (isset($_POST['email'])) {
             <div class="col-md-3 footer-main-newsletter">
             <h2>Join our Newsletter</h2>
     <form action="" method="post" onsubmit="subscribeNewsletter(event)">
-        <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-        <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+        <input type="text" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
             <button type="submit" class="footer-newsletter-subscribebtn" id="SubscribeBtn" onclick="playAudio()">Subscribe</button>
-        <?php } ?>
+        
         <audio id="SubscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
         <output id="subscribeOutput" for="emailInput"></output>
     </form>
 
-            <script>
-                window.onload = function() {
-            var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
-            sessionStorage.setItem('formSubmissions', formSubmissions);
-
-            if (sessionStorage.getItem('submitDisabled')) {
-                document.getElementById('SubscribeBtn').style.display = 'none';
-                document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
-            }
-        };
-
-        function subscribeNewsletter(event) {
-            event.preventDefault();
-
-            var emailInput = document.getElementById('emailInput');
-            var subscribeOutput = document.getElementById('subscribeOutput');
-            var subscribeButton = document.getElementById('SubscribeBtn');
-            const subscribeAudio = document.getElementById('SubscribeAudio');
-
-            if (isValidEmail(emailInput.value)) {
-                subscribeOutput.textContent = `Thank you for subscribing!`;
-
             
-                var formSubmissions = parseInt(sessionStorage.getItem('formSubmissions')) || 0;
-                formSubmissions++;
-                sessionStorage.setItem('formSubmissions', formSubmissions);
-
-                // Mshefe buttonin
-                subscribeButton.style.display = 'none';
-                sessionStorage.setItem('submitDisabled', 'true');
-
-                setTimeout(function () {
-                    emailInput.value = '';
-                }, 3000);
-            } else {
-                subscribeOutput.textContent = `Please enter a valid email address.`;
-            }
-        }
-
-        function isValidEmail(email) {
-            return email.includes('@');
-        }
-
-
-                function playAudio() {
-                    subscribeAudio.play();
-                };
-            </script>
             </div>
             </div>
             
