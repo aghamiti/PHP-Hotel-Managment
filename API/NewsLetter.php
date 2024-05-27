@@ -1,4 +1,7 @@
 <?php
+// Include your database connection file
+include 'db_connection.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $email = $_POST['email'];
@@ -11,9 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Please enter a valid email address.";
     } else {
         // Email is valid, proceed with further actions
-        // For example, you can subscribe the user to the newsletter
-        echo "Thank you for subscribing to our newsletter!";
+
+        // Insert email into the database
+        $sql = "INSERT INTO NewsletterSubscribers (Email, SubscriptionDate) VALUES ('$email', NOW())";
+        if (mysqli_query($conn, $sql)) {
+            echo "Thank you for subscribing to our newsletter!";
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
     }
 }
 ?>
-
