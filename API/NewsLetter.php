@@ -1,4 +1,5 @@
 <?php
+
 // Include your database connection file
 include 'db_connection.php';
 
@@ -13,15 +14,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!preg_match($email_pattern, $email)) {
         echo "Please enter a valid email address.";
     } else {
-        // Email is valid, proceed with further actions
-
         // Insert email into the database
-        $sql = "INSERT INTO NewsletterSubscribers (Email, SubscriptionDate) VALUES ('$email', NOW())";
+        $sql = "INSERT INTO NewsLetterSubscribers (Email, SubscriptionDate) VALUES ('$email', NOW())";
         if (mysqli_query($conn, $sql)) {
-            echo "Thank you for subscribing to our newsletter!";
+            $subject = "Confirmation Email";
+            $message = "Thank you for subscribing to our newsletter!";
+            $headers = "From: springhotel2024@gmail.com";
+
+            if(mail('$email',$subject,$message,$headers)){
+                echo "<br> Email sent! <br>";
+            }else{
+                echo "<br> Email not sent! <br>";
+            }
+
+
+
+            // echo "Thank you for subscribing to our newsletter! <br>";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
 }
+
 ?>
