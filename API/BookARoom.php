@@ -1,4 +1,7 @@
 <?php
+// Include the database connection file
+include 'db_connection.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $fullName = $_POST['Full-Name'];
@@ -6,6 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkOut = $_POST['Check-Out'];
     $adults = $_POST['Adults'];
     $children = $_POST['Children'];
+
+    // Perform server-side validation
+    $errors = array();
 
     // Validate Full Name
     if (empty($fullName)) {
@@ -31,17 +37,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Cannot have Children without Adults";
     }
 
-    // Output validation errors
+    // Output validation errors or proceed with further actions
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p>$error</p>";
         }
     } else {
-        // Form is valid, proceed with further actions
-        // For example, you can redirect the user to another page or process the form data
-        // header("Location: success.php");
-        // exit;
-        echo "Form is valid. Processing further actions...";
+        // Form is valid, proceed with inserting data into the database
+        $sql = "INSERT INTO Bookings (RoomID, GuestName, CheckInDate, CheckOutDate, Adults, Children)
+                VALUES (1, '$fullName', '$checkIn', '$checkOut', $adults, $children)";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
+
+// Close database connection
+$conn->close();
 ?>

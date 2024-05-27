@@ -208,7 +208,7 @@ if (isset($_POST['email'])) {
             <div class="booking-form">
                 <h1 style="font-size: 30px; margin-top: 10px;">Book a Room</h1>
 
-                <form style="display: flex; flex-direction: column;" id="myForm" method="post" action="../API/BookARoom.php">
+                <form id="bookingForm" style="display: flex; flex-direction: column;" id="myForm" method="post" action="../API/BookARoom.php">
                     <label class="text-uppercase" for="Full-Name">Your Full Name</label>
                     <input type="text" name="Full-Name" class="form-input" placeholder="Your Full Name..." required="true">
                 
@@ -523,6 +523,7 @@ if (isset($_POST['email'])) {
             style="display: flex; align-items: center; justify-content: center;"
             src="../assets/images/backToTop.png" /></button>
     <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
+<script src = "../js/ClientSide/Home.js"></script>
 <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
