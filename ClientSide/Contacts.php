@@ -52,7 +52,7 @@
         question about our services. We would be pleased to <br>
         answer your questions.
     </p>
-    <form id="censorForm" method="POST" action="send_email.php">
+    <form id="censorForm" method="POST" action="">
     <input type="text" id="name" name="name" placeholder="Your full name" required>
     <input type="tel" name="numbers" id="phone" placeholder="Phone" required>
     <textarea name="message" id="textarea" cols="30" rows="10" placeholder="Your message" required></textarea>
