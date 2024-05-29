@@ -84,7 +84,7 @@ require_once '../API/db_connection.php';
 <script>
     // Fetch reservations data from the API using Axios
     function fetchReservations() {
-        axios.get('../API/get_reservations.php')
+        axios.get('http://localhost/UEB_II_2024/AdminDash/get_reservations.php')
             .then(response => {
                 generateReservationList(response.data);
             })

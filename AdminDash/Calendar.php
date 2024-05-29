@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once '../API/db_connection.php';
 
 // Function to generate the static calendar for a given month, year, and room ID
-function generateStaticCalendar(&$month, &$year, &$roomID, &$conn) {
+function generateStaticCalendar($month, $year, $roomID, $conn) {
     $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $firstDayOfWeek = date('w', strtotime("$year-$month-01"));
 
@@ -103,7 +103,6 @@ while ($row = $result->fetch_assoc()) {
 $selectedRoom = isset($_GET['room']) ? $_GET['room'] : $rooms[0]['RoomID'];
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
