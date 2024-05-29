@@ -55,9 +55,24 @@ function sortTotalPayment($a, $b) {
         .butonat{
             text-align: center;
             text-decoration: none;
+            background: none;
+            border: none;
+            padding: 5px;
+            margin: 5px 0;
+            display: flex;
+            cursor: pointer;
+            font-size: 30px;
+            color: #000;
+            display: inline-block;
+            /* flex-direction: column;
+            align-items: center;  */
+            /* margin-bottom: 2px; */
         }
         .butonat:hover{
             color: #8f859e;
+        }
+        .butoni1{
+            transform: rotate(180deg);
         }
     </style>
     <title>Spring Hotel &amp; Spa</title>
@@ -110,83 +125,78 @@ function sortTotalPayment($a, $b) {
         <table><h1 style="text-align: center; color:black; font-family: 'Poppins'">Your Reservation Dashboard</h1></table>
         <br>
         <div class="row">
-            <div class="row">
-                <div class="col-md-12 butonat">
-                    <?php
-                        echo "<form method='GET'>";
-                        echo "<button type='submit' name='sort' value='asc_payment' class='butonat'>"?><i class="fa-solid fa-sort-up"></i>
-                    <?php
-                        echo "<button type='submit' name='sort' value='desc_payment' class='butonat'>";?><i class="fa-solid fa-sort-down"></i><?php
-                        echo "</form>";
-                        echo "<br>";
-                    ?>
-                </div>
-            </div>
-<?php
-            foreach ($bookings as &$booking) {
-            $checkInDate = strtotime($booking['CheckInDate']);
-            $checkOutDate = strtotime($booking['CheckOutDate']);
-            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
-            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment
-            $booking['TotalPayment'] = $totalPayment;
-        }
-            unset($booking);
+            <?php
+                foreach ($bookings as &$booking) {
+                    $checkInDate = strtotime($booking['CheckInDate']);
+                    $checkOutDate = strtotime($booking['CheckOutDate']);
+                    $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                    $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment
+                    $booking['TotalPayment'] = $totalPayment;
+                }
+                unset($booking);
 
-        if (isset($_GET['sort'])) {
-            if ($_GET['sort'] == 'asc_payment') {
-                usort($bookings, 'sortTotalPayment');
-            } elseif ($_GET['sort'] == 'desc_payment') {
-                usort($bookings, function($a, $b) {
-                return $b['TotalPayment'] <=> $a['TotalPayment'];
+                if (isset($_GET['sort'])) {
+                    if ($_GET['sort'] == 'asc_payment') {
+                        usort($bookings, 'sortTotalPayment');
+                    } elseif ($_GET['sort'] == 'desc_payment') {
+                        usort($bookings, function($a, $b) {
+                    return $b['TotalPayment'] <=> $a['TotalPayment'];
                 });
-            }   
-        }
-?>
-?>
+            }
+            }
+            ?>
             <div class="col-md-1"></div>
-            <div id="doneReservations" class="col-md-5 background-light">
-                <h2  class="heading2">Past Reservations</h2>
+            <div id="doneReservations" class="col-md-4 background-light">
+                <h2 class="heading2">Past</h2>
                 <?php foreach ($bookings as $booking) {
-                        $checkOutDate = strtotime($booking['CheckOutDate']);
-                        if ($checkOutDate < time()) { 
-                            $checkInDate = strtotime($booking['CheckInDate']);
-                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
-                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                $checkOutDate = strtotime($booking['CheckOutDate']);
+                if ($checkOutDate < time()) { 
+                    $checkInDate = strtotime($booking['CheckInDate']);
+                    $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                    $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
+                    <hr>
+                    <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                    <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
+                <hr>
+            <?php }
+            } ?>
+            </div>
+
+            <div class="col-md-2 butonat">
+                <?php
+                    echo "<form method='GET'>";
+                    echo "<button type='submit' name='sort' value='asc_payment' class='butonat butoni1'><i class='fa fa-sort-amount-desc'></i></button>";
+                    echo "<button type='submit' name='sort' value='desc_payment' class='butonat '><i class='fa fa-sort-amount-desc'></i></button>";
+                    echo "</form>";
+                    echo "<br>";
+                ?>
+            </div>
+
+            <div id="upcomingReservations" class="col-md-4 background-light">
+                <h2 class="heading2">Upcoming</h2>
+                <?php foreach ($bookings as $booking) {
+                    $checkOutDate = strtotime($booking['CheckOutDate']);
+                    if ($checkOutDate >= time()) { 
+                        $checkInDate = strtotime($booking['CheckInDate']);
+                        $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
+                        $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
                         <hr>
-                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
+                        <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
+                        <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
                         <hr>
                     <?php }
                 } ?>
             </div>
-            
-            <div id="upcomingReservations" class="col-md-5 background-light">
-                <h2 class="heading2">Upcoming Reservations</h2>
-                <?php foreach ($bookings as $booking) {
-                    
-                        $checkOutDate = strtotime($booking['CheckOutDate']);
-                        if ($checkOutDate >= time()) { 
-                            $checkInDate = strtotime($booking['CheckInDate']);
-                            $numberOfNights = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24)); // Calculate the number of nights stayed
-                            $totalPayment = $numberOfNights * $prices[0]['Price']; // Calculate the total payment ?>
-                        <hr>
-                            <p class="atributet"><strong class="atributet1">Guest name:</strong> <?php echo $booking['GuestName']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Booking number:</strong> <?php echo $booking['BookingID']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Check-in:</strong> <?php echo $booking['CheckInDate']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Check-out:</strong> <?php echo $booking['CheckOutDate']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Adults:</strong> <?php echo $booking['Adults']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Children:</strong> <?php echo $booking['Children']; ?></p>
-                            <p class="atributet"><strong class="atributet1">Total payment:</strong> <?php echo $totalPayment;?>&euro;</p>
-                        <hr>
-                    <?php }
-                } ?>
-            </div>
-            
             <div class="col-md-1"></div>
         </div>
     </div>

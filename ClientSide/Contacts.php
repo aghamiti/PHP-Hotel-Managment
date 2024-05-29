@@ -1,24 +1,13 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['form_submissions'])) {
-    $_SESSION['form_submissions'] = 0;
-}
-
-
-if (isset($_POST['email'])) {
-    // Rrite numrin e submits ne session
-    $_SESSION['form_submissions']++;
-
-
-    header('Location: ' . $_SERVER['PHP_SELF']);
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    /* Ensure the form elements have a consistent width */
+    #subject, #textarea {
+        width: 80.5%;
+        box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +16,6 @@ if (isset($_POST['email'])) {
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/ClientSide/Contacts.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script defer src="../js/ClientSide/Contact.js"></script>
 </head>
 <body>
 
@@ -64,36 +52,19 @@ if (isset($_POST['email'])) {
         question about our services. We would be pleased to <br>
         answer your questions.
     </p>
-
-    <form id="censorForm" action="">
-        <input type="text" id="name" name="Name" placeholder="Your full name">
-        <input type="tel" name="numbers" id="phone" placeholder="Phone">
-        <textarea name="comment" id="textarea" cols="30" rows="10" placeholder="Your message"></textarea>
+    <form id="censorForm" method="POST" action="">
+    <input type="text" id="name" name="name" placeholder="Your full name" required>
+    <input type="tel" name="numbers" id="phone" placeholder="Phone" required>
+    <textarea name="message" id="textarea" cols="30" rows="10" placeholder="Your message" required></textarea>
+    <input type="text" name="subject" id="subject" placeholder="Subject" required>
     
-        <div class="form-email-send">
-            <input type="email" name="mail" id="email" placeholder="E-mail">
-            <input type="submit" value="Send" class="send-msg-button">
-        </div>
-    </form>
-    
-    <script>
-            $(document).ready(function () {
-                $('#censorForm').submit(function (event) {
-                    event.preventDefault();
+    <div class="form-email-send">
+        <input type="email" name="email" id="email" placeholder="E-mail" required>
+        <input type="submit" name="send" value="Send" class="send-msg-button">
+    </div>
+</form>
 
-                    var textareaValue = $('#textarea').get(0).value;
-                    var curseWords = ['FN', 'FIM', 'fn', "fim"];
 
-                    curseWords.forEach(function (curseWord) {
-                        var regex = new RegExp('\\b' + curseWord + '\\b', 'gi');
-                        textareaValue = textareaValue.replace(regex, '****');
-                    });
-
-                    console.log('Censored Message:', textareaValue);
-                });
-            });
-    </script>
-    
     </div>
 
     <div class="elemets">
@@ -167,55 +138,15 @@ if (isset($_POST['email'])) {
             <h2>Join our Newsletter</h2>
         <form id="newsletterForm" method="post" action="../API/newsletter.php" onsubmit="subscribeNewsletter(event)">
             <input type="email" name="email" placeholder="Enter your e-mail" required class="footer-newsletter-textfield" id="emailInput">
-            <?php if ($_SESSION['form_submissions'] == 0 && !isset($_SESSION['submit_disabled'])) { ?>
+            
                 <button type="submit" class="footer-newsletter-subscribebtn" id="subscribeBtn" onclick="playAudio()">Subscribe</button>
-            <?php } ?>
             <audio id="subscribeAudio" src="../assets/audio/button-click.mp3" type="audio/mp3"></audio>
             <output id="subscribeOutput" for="emailInput"></output>
         </form>
 
-            <script>
-            window.onload = function() {
-                var formSubmissions = <?php echo $_SESSION['form_submissions']; ?>;
-                sessionStorage.setItem('formSubmissions', formSubmissions);
-
-            if (sessionStorage.getItem('submitDisabled')) {
-                document.getElementById('SubscribeBtn').style.display = 'none';
-                document.getElementById('subscribeOutput').textContent = "You're already subscribed.";
-            }
-        };
-
-            function subscribeNewsletter(event) {
-                event.preventDefault();
-
-                var form = document.getElementById('newsletterForm');
-                var formData = new FormData(form);
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '../API/newsletter.php', true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            // Handle successful response
-                            var response = xhr.responseText;
-                            var subscribeOutput = document.getElementById('subscribeOutput');
-                            subscribeOutput.textContent = response;
-                            form.reset();
-                        } else {
-                            // Handle error response
-                            console.error('Error:', xhr.status);
-                        }
-                    }
-                };
-                xhr.send(formData);
-            }
-
-            function playAudio() {
-                subscribeAudio.play();
-            };
-            </script>
-            </div>
-            </div>
+            
+        </div>
+        </div>
             
         </div>
         <div class="footer-socials">
@@ -232,41 +163,7 @@ if (isset($_POST['email'])) {
             style="display: flex; align-items: center; justify-content: center;"
             src="../assets/images/backToTop.png" /></button>
     <audio id="backToTopSound" src="../assets/audio/whoosh.mp3" type="audio/mp3"></audio>
-<script src="../js/ClientSide/About-Us.js"></script>
 <script src="../assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-    <script>
-        // -------------------------- Butoni back to top --------------------------
-
-            document.addEventListener("DOMContentLoaded", () => {
-                // Get the button
-                const mybutton = document.getElementById("backToTopBtn");
-
-                // When the user scrolls down 90px from the top of the document, show the button
-                window.onscroll = () => scrollFunction();
-
-                const scrollFunction = () => {
-                    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                        mybutton.style.display = "block";
-                        mybutton.classList.add("show");
-                    } else {
-                        mybutton.classList.remove("show");
-                    }
-                };
-
-                // When the user clicks on the button, scroll to the top of the document
-                mybutton.addEventListener("click", () => topFunction());
-
-                const topFunction = () => {
-                    // Smooth scroll to the top
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-                };
-            });
-    </script>
-</section>
-</body>
-</html>
+    
