@@ -8,6 +8,20 @@ require_once '../API/db_connection.php';
 ?>
 
 <!DOCTYPE html>
+<style>
+    #sendBTN {
+    padding: 12px 32px;
+    background-color: #8f859e;
+    border-color: #8f859e;
+    color: #fff;
+    transition: all ease-in 0.3s;
+}
+
+ #sendBTN:hover{
+    background-color: transparent;
+    color: #8f859e;
+} 
+</style>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,7 +79,7 @@ require_once '../API/db_connection.php';
                 <label for="message">Message:</label>
                 <textarea class="form-control" id="message" rows="3" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary" id="sendBTN">Send</button>
         </form>
     </div>
 </div>
