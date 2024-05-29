@@ -234,112 +234,13 @@ if (isset($_POST['email'])) {
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
-                    <button id="checkAvailabilityBtn" onclick="openModal()" class="btn btn-primary" >Check Availability</button>
-
                 
+                    <button id="formBtn" class="btn btn-primary" type="submit">Check Availability</button>
                 </form>
             </div>
         </div>
 
-
         </section>
-        <!-- Modal Structure -->
-<!-- Modal Structure -->
-<div id="roomModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
-            <div id="roomDetails" class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="Single Room" data-capacity="1 guest" data-price="100">
-                            <h5>Single Room</h5>
-                            <p>Capacity: 1 guest</p>
-                            <p>Price per night: $100</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="Double Room" data-capacity="2 guests" data-price="150">
-                            <h5>Double Room</h5>
-                            <p>Capacity: 2 guests</p>
-                            <p>Price per night: $150</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="Twin Room" data-capacity="2 guests" data-price="140">
-                            <h5>Twin Room</h5>
-                            <p>Capacity: 2 guests</p>
-                            <p>Price per night: $140</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="Family Room" data-capacity="4 guests" data-price="200">
-                            <h5>Family Room</h5>
-                            <p>Capacity: 4 guests</p>
-                            <p>Price per night: $200</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="Executive Suite" data-capacity="2 guests" data-price="300">
-                            <h5>Executive Suite</h5>
-                            <p>Capacity: 2 guests</p>
-                            <p>Price per night: $300</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="room-card" data-room-type="VIP Suite" data-capacity="2 guests" data-price="500">
-                            <h5>VIP Suite</h5>
-                            <p>Capacity: 2 guests</p>
-                            <p>Price per night: $500</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="formBtn" class="btn btn-primary" type="button">Book</button>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        // Open modal function
-        function openModal() {
-            document.getElementById("roomModal").style.display = "block";
-        }
-
-        // Close modal function
-        document.getElementById("closeModal").onclick = function() {
-            document.getElementById("roomModal").style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == document.getElementById("roomModal")) {
-                document.getElementById("roomModal").style.display = "none";
-            }
-        }
-
-        document.querySelectorAll('.room-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected-room'));
-                card.classList.add('selected-room');
-            });
-        });
-
-        document.getElementById("formBtn").addEventListener("click", function() {
-            const selectedRoom = document.querySelector('.room-card.selected-room');
-            if (selectedRoom) {
-                const roomType = selectedRoom.getAttribute('data-room-type');
-                const capacity = selectedRoom.getAttribute('data-capacity');
-                const price = selectedRoom.getAttribute('data-price');
-
-                // Perform the booking action here using roomType, capacity, and price
-                alert(`Room Type: ${roomType}\nCapacity: ${capacity}\nPrice per night: $${price}`);
-                document.getElementById("roomModal").style.display = "none";
-            } else {
-                alert("Please select a room type to book.");
-            }
-        });
-    </script>
 
         
         

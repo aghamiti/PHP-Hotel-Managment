@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Kur useri klikon butonin, ktheje ne top te faqes
     mybutton.addEventListener("click", () => topFunction());
+
     const topFunction = () => {
         // Scrolli per ne top te behet ne menyre te bute dhe njekohesisht te luhet audio mp3
         buttonAudio.play();
@@ -26,17 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 });
 
-const checkAvailabilitybt = document.getElementById('checkAvailabilityBtn')
-checkAvailabilitybt.addEventListener('click', ()=>{openModal(); console.log("pressed")})
-const roomModal = document.getElementById('roomModal')
-const closeModalBtn = document.getElementById('closeModal') 
-closeModalBtn.addEventListener('click', closeModal)
-function openModal(){
-    roomModal.style.display = 'block';
-}
-function closeModal(){
-    roomModal.style.display = 'none';
-}
 // Validimi i formes per rezervim
 function validateDates() {
     try {
