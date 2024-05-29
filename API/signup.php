@@ -3,6 +3,35 @@ include 'db_connection.php'; // Database connection
 
 session_start();
 
+function ErrorHandler($errno, $errstr, $errfile, $errline) {
+    // Customize the error messages
+    switch ($errno) {
+        case E_USER_ERROR:
+            echo "Gabim! Numri i gabimit: [$errno] . $errstr";
+            echo "Gabimi ne reshtin $errline ne file-in $errfile";
+            break;
+        case E_USER_WARNING:
+            echo "Paralajmerim! Numri i gabimit: [$errno] . $errstr<br>";
+            break;
+        case E_USER_NOTICE:
+            echo "<b>Vemendje: </b> [$errno] $errstr<br>";
+            break;
+        default:
+            echo "Gabim i panjohur: [$errno] $errstr<br>";
+            echo "Gabimi ne rreshtin $errline ne file-in $errfile<br>";
+            break;
+    }
+    
+    /* Don't execute PHP internal error handler */
+    return true;
+}
+
+// Set the custom error handler
+set_error_handler("ErrorHandler");
+
+
+
+
 // Function to validate email
 function validateEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -27,7 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WIT
     $errors = [];
 
     if (empty($username)) {
-        $errors["signupUsername"] = "Username is required";
+        trigger_error("Username eshte obligativ te plotesohet!", E_USER_ERROR);
+    }elseif(strlen($username)<=3){
+        trigger_error("Gjatesia e username duhet te jete me e madhe se 3. Shkruaj perseri.", E_USER_NOTICE);
     }
 
     if (empty($email)) {
