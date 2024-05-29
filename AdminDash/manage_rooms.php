@@ -26,9 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo json_encode(["status" => "error", "message" => "Failed to upload image"]);
                 }
                 break;
-            case 'edit':
-                // Implement the edit functionality
-                break;
             case 'delete':
                 $roomId = $_POST['roomId'];
                 $sql = "DELETE FROM rooms WHERE RoomID='$roomId'";
