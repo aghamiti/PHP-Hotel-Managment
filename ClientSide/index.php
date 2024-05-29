@@ -256,6 +256,9 @@ if (isset($_POST['email'])) {
                         <div class="modal-content">
                             <span class="close" id="closeModalBtn">&times;</span>
                             <div id="modalContent"></div>
+                            <div id="roomDetails">
+                                <div class="row"></div>
+                            </div>
                             <div class="modal-footer">
                             <button id="formBtn" class="btn btn-primary" type="submit">Book</button>
                             </div>
