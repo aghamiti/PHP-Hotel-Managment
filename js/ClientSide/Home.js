@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Kur useri klikon butonin, ktheje ne top te faqes
     mybutton.addEventListener("click", () => topFunction());
+
     const topFunction = () => {
         // Scrolli per ne top te behet ne menyre te bute dhe njekohesisht te luhet audio mp3
         buttonAudio.play();
@@ -26,17 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 });
 
-const checkAvailabilitybt = document.getElementById('checkAvailabilityBtn')
-checkAvailabilitybt.addEventListener('click', ()=>{openModal(); console.log("pressed")})
-const roomModal = document.getElementById('roomModal')
-const closeModalBtn = document.getElementById('closeModal') 
-closeModalBtn.addEventListener('click', closeModal)
-function openModal(){
-    roomModal.style.display = 'block';
-}
-function closeModal(){
-    roomModal.style.display = 'none';
-}
 // Validimi i formes per rezervim
 function validateDates() {
     try {
@@ -98,6 +88,82 @@ const validateAdults = () => {
         adultsSelect.value = "";
     }
 };
+
+
+
+
+
+// Add event listener to check availability button
+document.getElementById("checkAvailabilityBtn").addEventListener("click", () => {
+    // Open the modal
+    openModal();
+
+    // Fetch data from the server
+    fetch('../API/FetchRoomData.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Populate the modal with data
+            populateModal(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+// Function to populate modal with data
+function populateModal(data) {
+    const roomDetails = document.getElementById("roomDetails");
+    roomDetails.innerHTML = '';
+
+    data.forEach(room => {
+        const roomCard = document.createElement('div');
+        roomCard.classList.add('col-md-4', 'mb-4');
+        roomCard.innerHTML = `
+            <div class="room-card" data-room-type="${room.RoomType}" data-description="${room.Description}" data-price="${room.Price}">
+                <h5>${room.RoomType}</h5>
+                <p>Description: ${room.Description}</p>
+                <p>Price per night: $${room.Price}</p>
+            </div>
+        `;
+        roomDetails.appendChild(roomCard);
+    });
+
+    // Add event listeners to room cards for selection
+    document.querySelectorAll('.room-card').forEach(card => {
+        card.addEventListener('click', function() {
+            document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected-room'));
+            card.classList.add('selected-room');
+        });
+    });
+}
+
+// Open modal function
+function openModal() {
+    document.getElementById("roomModal").style.display = "block";
+}
+
+// Close modal function
+document.getElementById("closeModalBtn").addEventListener("click", () => {
+    document.getElementById("roomModal").style.display = "none";
+});
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById("roomModal")) {
+        document.getElementById("roomModal").style.display = "none";
+    }
+};
+
+
+
+
+
+
+
+
+
 
 // Marrja e te dhenave nga forma per rezervim
 document.getElementById("bookingForm").addEventListener("submit", (e) => {
