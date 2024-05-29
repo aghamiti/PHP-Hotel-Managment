@@ -124,6 +124,7 @@ function populateModal(data) {
 
     const cardContent = document.createElement('div');
     cardContent.classList.add('room-card');
+    cardContent.setAttribute('data-room-id', room.RoomID);
     cardContent.setAttribute('data-room-type', room.RoomType);
     cardContent.setAttribute('data-description', room.Description);
     cardContent.setAttribute('data-price', room.Price);
@@ -182,10 +183,22 @@ window.onclick = function(event) {
 
 // Marrja e te dhenave nga forma per rezervim
 document.getElementById("bookingForm").addEventListener("submit", (e) => {
-    e.preventDefault(); // Parandalo formen te dergoje te dhenat tradicionalisht
+    e.preventDefault(); // Prevent the default form submission
+
+    // Get the selected room ID
+    const selectedRoom = document.querySelector('.room-card.selected-room');
+    let roomId = null;
+    if (selectedRoom) {
+        roomId = selectedRoom.getAttribute('data-room-id');
+    }
 
     // Serialize form data
     const formData = new FormData(document.getElementById('bookingForm'));
+
+    // Append the room ID to the form data if available
+    if (roomId) {
+        formData.append('RoomId', roomId);
+    }
 
     // Send AJAX request
     const xhr = new XMLHttpRequest();
@@ -193,7 +206,8 @@ document.getElementById("bookingForm").addEventListener("submit", (e) => {
     xhr.onload = function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             // Request was successful
-            console.log(xhr.responseText); // Log response from the server
+            console.log(xhr.responseText);
+            alert(xhr.responseText) // Log response from the server
             // You can optionally handle the response here, such as displaying a success message
         } else {
             // Request failed

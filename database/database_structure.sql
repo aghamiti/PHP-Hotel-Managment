@@ -21,6 +21,7 @@ CREATE TABLE Bookings (
     Adults INT,
     Children INT,
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE BlogPosts (

@@ -234,7 +234,7 @@ if (isset($_POST['email'])) {
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
-                    <button id="checkAvailabilityBtn" class="btn btn-primary" >Check Availability</button>
+                    <button id="checkAvailabilityBtn" class="btn btn-primary" type="button">Check Availability</button>
                    <!-- Modal Structure -->
                     <div id="roomModal" class="modal">
                         <div class="modal-content">
