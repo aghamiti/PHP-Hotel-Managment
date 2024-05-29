@@ -139,6 +139,22 @@ if (isset($_POST['email'])) {
             padding: 20px;
         }
 
+
+        #checkAvailabilityBtn {
+            margin-top: 20px;
+            margin-bottom: 20px;
+    padding: 12px 32px;
+    background-color: #8f859e;
+    border-color: #8f859e;
+    color: #fff;
+    transition: all ease-in 0.3s;
+}
+
+ #checkAvailabilityBtn:hover{
+    background-color: transparent;
+    color: #8f859e;
+} 
+
     </style>
 </head>
 
@@ -235,22 +251,16 @@ if (isset($_POST['email'])) {
                         <option value="3">3</option>
                     </select>
                     <button id="checkAvailabilityBtn" class="btn btn-primary" >Check Availability</button>
-                   <!-- Modal Structure -->
+                    <!-- Modal Structure -->
                     <div id="roomModal" class="modal">
                         <div class="modal-content">
                             <span class="close" id="closeModalBtn">&times;</span>
-                            <div id="modalContent">
-                                <div id="roomDetails">
-                                    <div class="row"></div>
-                                </div>
-                                <p id="roomPrice"></p>
-                            </div>
+                            <div id="modalContent"></div>
                             <div class="modal-footer">
-                                <button id="formBtn" class="btn btn-primary" type="submit">Book</button>
+                            <button id="formBtn" class="btn btn-primary" type="submit">Book</button>
                             </div>
                         </div>
                     </div>
-
 
 
                 </form>
