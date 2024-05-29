@@ -16,6 +16,7 @@ CREATE TABLE Bookings (
     RoomID INT,
     GuestName VARCHAR(100),
     CheckInDate DATE,
+    UserID INT,
     CheckOutDate DATE,
     Adults INT,
     Children INT,
