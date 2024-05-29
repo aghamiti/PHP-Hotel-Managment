@@ -51,16 +51,16 @@
                     <label for="price">Price</label>
                     <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group custom-file-group">
                     <label for="roomImage">Room Image</label>
                     <input type="file" class="form-control-file" id="roomImage" name="roomImage" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Room</button>
+                <button type="submit" id="poolBtn" class="btn btn-primary">Add Room</button>
             </form>
         </div>
         <!-- List Rooms Button -->
         <div class="mb-4">
-            <button class="btn btn-secondary" id="listRoomsBtn">List Rooms</button>
+            <button class="btn btn-outline-light" id="listRoomsBtn">List Rooms</button>
         </div>
         <!-- Room List -->
         <div id="roomList" class="row"></div>
