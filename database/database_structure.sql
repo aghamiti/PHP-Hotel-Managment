@@ -13,12 +13,14 @@ CREATE TABLE rooms (
 CREATE TABLE Bookings (
     BookingID INT PRIMARY KEY AUTO_INCREMENT,
     RoomID INT,
+    UserID INT,
     GuestName VARCHAR(100),
     CheckInDate DATE,
     CheckOutDate DATE,
     Adults INT,
     Children INT,
-    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE BlogPosts (

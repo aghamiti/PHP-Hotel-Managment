@@ -12,7 +12,7 @@ function sortTotalPayment($a, $b) {
 
         $user_id = mysqli_real_escape_string($conn, $user_id);
 
-        $sql = "SELECT * FROM Bookings"; //Query nderrohet kur funksionalizohen dhe nderrohen pjeset tjera
+        $sql = "SELECT * FROM Bookings WHERE UserID='$user_id'"; //Query nderrohet kur funksionalizohen dhe nderrohen pjeset tjera
         $sql1 = "SELECT Price FROM Rooms";  
 
         $result = mysqli_query($conn, $sql); 
