@@ -243,7 +243,7 @@ if (isset($_POST['email'])) {
                 var formData = new FormData(form);
 
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '../API/newsletter.php', true);
+                xhr.open('POST', '../API/NewsLetter.php', true);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {

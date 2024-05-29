@@ -17,19 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert email into the database
         $sql = "INSERT INTO NewsLetterSubscribers (Email, SubscriptionDate) VALUES ('$email', NOW())";
         if (mysqli_query($conn, $sql)) {
-            $subject = "Confirmation Email";
-            $message = "Thank you for subscribing to our newsletter!";
-            $headers = "From: springhotel2024@gmail.com";
-
-            if(mail('$email',$subject,$message,$headers)){
-                echo "<br> Email sent! <br>";
-            }else{
-                echo "<br> Email not sent! <br>";
-            }
-
-
-
-            // echo "Thank you for subscribing to our newsletter! <br>";
+            echo "Thank you for subscribing to our newsletter!";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
