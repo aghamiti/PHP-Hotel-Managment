@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
@@ -22,18 +27,22 @@
         <a href="./index.html"><img src="../assets/images/Logo.png" alt="Logo" /></a>
     </div>
     <nav class="navbar">
-        <div></div>
-        <ul>
-            <li><a href="./index.php">Home</a></li>
-            <li><a href="./About-Us.php">About Us</a></li>
-            <li><a href="./Contacts.php">Contacts</a></li>
-            <li><a href="./FAQ.php">FAQ</a></li>
-            <li><a href="./Events.php">Events</a></li>
+    <div></div>
+    <ul>
+        <li><a href="./index.php">Home</a></li>
+        <li><a href="./About-Us.php">About Us</a></li>
+        <li><a href="./Contacts.php">Contacts</a></li>
+        <li><a href="./FAQ.php">FAQ</a></li>
+        <li><a href="./Events.php">Events</a></li>
         </ul>
-        <a href="login-signup.html">
-            <img src="../assets/images/login-icon.png" alt="login-icon">
-        </a>
-    </nav>
+        <?php if(isset($_SESSION['login_user'])): ?>
+            <h7><a href="profile_page.php">Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></a></h7>
+            <h7><a href="../API/logout.php"><img src="../assets/images/login-icon.png" alt=""></a></h7>
+        <?php else: ?>
+            <a href="./login-signup.php"><img src="../assets/images/login-icon.png" alt=""></a>
+        <?php endif; ?>
+    
+</nav>
 
     <header class="contacts">
         <h1>Contacts</h1>

@@ -174,7 +174,7 @@ if (isset($_POST['email'])) {
         </ul>
         <?php if(isset($_SESSION['login_user'])): ?>
             <h7><a href="profile_page.php">Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></a></h7>
-            <h7><a href="../API/logout.php">Logout</a></h7>
+            <h7><a href="../API/logout.php"><img src="../assets/images/login-icon.png" alt=""></a></h7>
         <?php else: ?>
             <a href="./login-signup.php"><img src="../assets/images/login-icon.png" alt=""></a>
         <?php endif; ?>
