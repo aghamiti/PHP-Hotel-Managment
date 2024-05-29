@@ -11,8 +11,8 @@ class User {
     protected $password;
     protected $role;
 
-    public function __construct($dbConnection) {
-        $this->conn = $dbConnection;
+    public function __construct(&$dbConnection) {  // Use reference for db connection
+        $this->conn =& $dbConnection;  // Assign by reference
     }
 
     public function setUsername($username) {
@@ -29,10 +29,10 @@ class User {
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
-        
+
         if ($user && password_verify($this->password, $user['Password'])) {
-            $_SESSION['login_user'] = $this->username;
-            $_SESSION['user_id'] = $user['UserID'];
+            $_SESSION['login_user'] =& $this->username;  // Assign by reference
+            $_SESSION['user_id'] =& $user['UserID'];  // Assign by reference
             $this->role = $user['UserRole'];
             $this->redirectBasedOnRole();
             return true;
@@ -59,7 +59,7 @@ class AdminUser extends User {
     }
 }
 
-$user = new User($conn); 
+$user = new User($conn);
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $user->setUsername($_POST['username']);
     $user->setPassword($_POST['password']);
