@@ -34,8 +34,12 @@ set_error_handler("ErrorHandler");
 
 // Function to validate email
 function validateEmail($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
+    // Regular expression pattern for email validation
+    $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+    // Check if the email matches the pattern
+    return preg_match($pattern, $email);
 }
+
 
 // Function to validate password
 function validatePassword($password) {

@@ -208,16 +208,13 @@ document.getElementById("bookingForm").addEventListener("submit", (e) => {
             // Request was successful
             console.log(xhr.responseText);
             alert(xhr.responseText) // Log response from the server
-            // You can optionally handle the response here, such as displaying a success message
         } else {
             // Request failed
             console.error('Error:', xhr.statusText);
-            // You can handle errors here, such as displaying an error message to the user
         }
     };
     xhr.onerror = function () {
         console.error('Request failed');
-        // You can handle errors here, such as displaying an error message to the user
     };
     xhr.send(formData); // Send form data
 });

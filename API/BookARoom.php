@@ -20,27 +20,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate Full Name
     if (empty($fullName)) {
-        $errors[] = "Full Name is required";
-    }
+    $errors[] = "Full Name is required";
+}
 
-    // Validate Check-In Date
-    if (empty($checkIn)) {
-        $errors[] = "Check-In Date is required";
-    } elseif ($checkIn < date('Y-m-d')) {
-        $errors[] = "Check-In Date must be at least today";
-    }
+// Validate Check-In Date with regex
+if (empty($checkIn)) {
+    $errors[] = "Check-In Date is required";
+} elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkIn)) {
+    $errors[] = "Invalid Check-In Date format";
+} elseif ($checkIn < date('Y-m-d')) {
+    $errors[] = "Check-In Date must be at least today";
+}
 
-    // Validate Check-Out Date
-    if (empty($checkOut)) {
-        $errors[] = "Check-Out Date is required";
-    } elseif ($checkOut <= $checkIn) {
-        $errors[] = "Check-Out Date must be after Check-In Date";
-    }
+// Validate Check-Out Date with regex
+if (empty($checkOut)) {
+    $errors[] = "Check-Out Date is required";
+} elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $checkOut)) {
+    $errors[] = "Invalid Check-Out Date format";
+} elseif ($checkOut <= $checkIn) {
+    $errors[] = "Check-Out Date must be after Check-In Date";
+}
 
-    // Validate Adults and Children
-    if ($adults == 0 && $children > 0) {
-        $errors[] = "Cannot have Children without Adults";
-    }
+// Validate Adults and Children with regex
+if (!preg_match('/^\d+$/', $adults)) {
+    $errors[] = "Adults must be a number";
+}
+
+if (!preg_match('/^\d+$/', $children)) {
+    $errors[] = "Children must be a number";
+}
+
+// Additional validation logic...
+
 
     // Output validation errors or proceed with further actions
     if (!empty($errors)) {
@@ -60,7 +71,7 @@ $stmt->bind_param("iisssii", $room, $user_id, $fullName, $checkIn, $checkOut, $a
 
 // Execute the statement
 if ($stmt->execute()) {
-    echo "New record created successfully";
+    echo "Room Booked Succesfully";
 } else {
     echo "Error: " . $stmt->error;
 }
