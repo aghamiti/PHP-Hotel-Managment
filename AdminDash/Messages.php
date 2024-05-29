@@ -25,6 +25,7 @@
         <li><a href="./Calendar.php">Calendar</a></li>
         <li><a href="./Messages.php">Inbox</a></li>
         <li><a href="./Reservations.php">Reservations</a></li>
+        <li><a href="./rooms.html">Rooms</a></li>
     </ul>
     <a href="../ClientSide/login-signup.php">
         <img src="../assets/images/login-icon.png" alt="login-icon">

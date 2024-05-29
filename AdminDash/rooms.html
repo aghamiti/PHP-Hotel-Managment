@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Management</title>
+    <link rel="stylesheet" href="../css/AdminDash/Reservations.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="logoja">
+        <a href="../ClientSide/index.php"><img src="../assets/images/Logo.png" alt="Logo" /></a>
+    </div>
+    <div class="container mt-5">
+        <nav class="navbar">
+            <div></div>
+            <ul>
+                <li><a href="./Calendar.php">Calendar</a></li>
+                <li><a href="./Messages.php">Inbox</a></li>
+                <li><a href="./Reservations.php">Reservations</a></li>
+                <li><a href="./rooms.html">Rooms</a></li>
+            </ul>
+            <a href="../ClientSide/login-signup.php">
+                <img src="../assets/images/login-icon.png" alt="login-icon">
+            </a>
+        </nav>
+        <h2>Room Management</h2>
+        <!-- Add Room Form -->
+        <div class="mb-4">
+            <h4>Add Room</h4>
+            <form id="addRoomForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="roomNumber">Room Number</label>
+                    <input type="text" class="form-control" id="roomNumber" name="roomNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomType">Room Type</label>
+                    <select class="form-control" id="roomType" name="roomType" required>
+                        <option value="">Select Room Type</option>
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="Suite">Suite</option>
+                        <option value="Deluxe">Deluxe</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomImage">Room Image</label>
+                    <input type="file" class="form-control-file" id="roomImage" name="roomImage" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Room</button>
+            </form>
+        </div>
+        <!-- List Rooms Button -->
+        <div class="mb-4">
+            <button class="btn btn-secondary" id="listRoomsBtn">List Rooms</button>
+        </div>
+        <!-- Room List -->
+        <div id="roomList" class="row"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#addRoomForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            formData.append('action', 'add');
+
+            $.ajax({
+                url: 'manage_rooms.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log('Add Room Response:', response); // Debugging statement
+                    var res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        $('#addRoomForm')[0].reset();
+                        alert('Room added successfully');
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Add Room Error:', xhr, status, error); // Debugging statement
+                }
+            });
+        });
+
+        $('#listRoomsBtn').on('click', function () {
+            fetchRooms();
+        });
+    });
+
+    function fetchRooms() {
+        $.ajax({
+            url: 'manage_rooms.php',
+            type: 'GET',
+            success: function (response) {
+                console.log('Fetch Rooms Response:', response); // Debugging statement
+                var rooms = JSON.parse(response);
+                console.log('Parsed Rooms:', rooms); // Debugging statement
+                var roomList = $('#roomList');
+                roomList.empty();
+
+                rooms.forEach(function (room) {
+                    console.log('Room:', room); // Debugging statement
+                    roomList.append(`
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <img src="${room.ImageURL}" class="card-img-top" alt="Room Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">${room.RoomNumber}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${room.RoomType}</h6>
+                                    <p class="card-text">${room.Description}</p>
+                                    <p class="card-text"><strong>Price:</strong> $${room.Price}</p>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteRoom(${room.RoomID})">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Fetch Rooms Error:', xhr, status, error); // Debugging statement
+            }
+        });
+    }
+
+    function editRoom(roomId) {
+        // Implement edit functionality
+    }
+
+    function deleteRoom(roomId) {
+        $.ajax({
+            url: 'manage_rooms.php',
+            type: 'POST',
+            data: { action: 'delete', roomId: roomId },
+            success: function (response) {
+                console.log('Delete Room Response:', response); // Debugging statement
+                var res = JSON.parse(response);
+                if (res.status === 'success') {
+                    fetchRooms();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Delete Room Error:', xhr, status, error); // Debugging statement
+            }
+        });
+    }
+    </script>
+</body>
+</html>

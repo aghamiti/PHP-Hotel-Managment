@@ -94,6 +94,7 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
         <li><a href="./Calendar.php">Calendar</a></li>
         <li><a href="./Messages.php">Inbox</a></li>
         <li><a href="./Reservations.php">Reservations</a></li>
+        <li><a href="./rooms.html">Rooms</a></li>
     </ul>
     <?php if(isset($_SESSION['login_user'])): ?>
         <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
