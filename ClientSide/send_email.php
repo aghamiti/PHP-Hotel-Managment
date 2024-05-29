@@ -47,7 +47,7 @@ if (isset($_POST["send"])) {
         // Log the error or handle it more gracefully
         echo "
         <script>
-            alert('Message could not be sent. Please try again later.');
+            alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');
             window.history.back();
         </script>";
     }
