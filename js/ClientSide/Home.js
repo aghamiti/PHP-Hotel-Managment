@@ -119,17 +119,32 @@ function populateModal(data) {
     roomDetails.innerHTML = '';
 
     data.forEach(room => {
-        const roomCard = document.createElement('div');
-        roomCard.classList.add('col-md-4', 'mb-4');
-        roomCard.innerHTML = `
-            <div class="room-card" data-room-type="${room.RoomType}" data-description="${room.Description}" data-price="${room.Price}">
-                <h5>${room.RoomType}</h5>
-                <p>Description: ${room.Description}</p>
-                <p>Price per night: $${room.Price}</p>
-            </div>
-        `;
-        roomDetails.appendChild(roomCard);
+    const roomCard = document.createElement('div');
+    roomCard.classList.add('col-md-4', 'mb-4');
+
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('room-card');
+    cardContent.setAttribute('data-room-type', room.RoomType);
+    cardContent.setAttribute('data-description', room.Description);
+    cardContent.setAttribute('data-price', room.Price);
+
+    cardContent.innerHTML = `
+        <h5>${room.RoomType}</h5>
+        <p>Price per night: $${room.Price}</p>
+    `;
+
+    // Add click event listener to toggle background color
+    cardContent.addEventListener('click', function() {
+        // Toggle the 'selected' class
+        cardContent.classList.toggle('selected');
     });
+
+    roomCard.appendChild(cardContent);
+    roomDetails.appendChild(roomCard);
+});
+
+
+
 
     // Add event listeners to room cards for selection
     document.querySelectorAll('.room-card').forEach(card => {
