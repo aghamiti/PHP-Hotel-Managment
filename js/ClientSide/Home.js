@@ -89,6 +89,82 @@ const validateAdults = () => {
     }
 };
 
+
+
+
+
+// Add event listener to check availability button
+document.getElementById("checkAvailabilityBtn").addEventListener("click", () => {
+    // Open the modal
+    openModal();
+
+    // Fetch data from the server
+    fetch('../API/FetchRoomData.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Populate the modal with data
+            populateModal(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+// Function to populate modal with data
+function populateModal(data) {
+    const roomDetails = document.getElementById("roomDetails");
+    roomDetails.innerHTML = '';
+
+    data.forEach(room => {
+        const roomCard = document.createElement('div');
+        roomCard.classList.add('col-md-4', 'mb-4');
+        roomCard.innerHTML = `
+            <div class="room-card" data-room-type="${room.RoomType}" data-description="${room.Description}" data-price="${room.Price}">
+                <h5>${room.RoomType}</h5>
+                <p>Description: ${room.Description}</p>
+                <p>Price per night: $${room.Price}</p>
+            </div>
+        `;
+        roomDetails.appendChild(roomCard);
+    });
+
+    // Add event listeners to room cards for selection
+    document.querySelectorAll('.room-card').forEach(card => {
+        card.addEventListener('click', function() {
+            document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected-room'));
+            card.classList.add('selected-room');
+        });
+    });
+}
+
+// Open modal function
+function openModal() {
+    document.getElementById("roomModal").style.display = "block";
+}
+
+// Close modal function
+document.getElementById("closeModalBtn").addEventListener("click", () => {
+    document.getElementById("roomModal").style.display = "none";
+});
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById("roomModal")) {
+        document.getElementById("roomModal").style.display = "none";
+    }
+};
+
+
+
+
+
+
+
+
+
+
 // Marrja e te dhenave nga forma per rezervim
 document.getElementById("bookingForm").addEventListener("submit", (e) => {
     e.preventDefault(); // Parandalo formen te dergoje te dhenat tradicionalisht

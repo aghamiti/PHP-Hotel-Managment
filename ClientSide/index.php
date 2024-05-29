@@ -234,8 +234,19 @@ if (isset($_POST['email'])) {
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
-                
-                    <button id="formBtn" class="btn btn-primary" type="submit">Check Availability</button>
+                    <button id="checkAvailabilityBtn" class="btn btn-primary" >Check Availability</button>
+                    <!-- Modal Structure -->
+                    <div id="roomModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" id="closeModalBtn">&times;</span>
+                            <div id="modalContent"></div>
+                            <div class="modal-footer">
+                            <button id="formBtn" class="btn btn-primary" type="submit">Book</button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </form>
             </div>
         </div>
