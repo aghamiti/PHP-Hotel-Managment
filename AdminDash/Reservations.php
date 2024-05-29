@@ -4,7 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once '../API/db_connection.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -79,14 +78,20 @@ require_once '../API/db_connection.php';
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!-- Custom JavaScript -->
 <script>
-    // Sample reservations data (replace with your actual data)
-    var reservations = [
-        { id: 1, guestName: 'John Doe', roomType: 'Standard', checkInDate: '2024-04-20', checkOutDate: '2024-04-25' },
-        { id: 2, guestName: 'Jane Smith', roomType: 'Deluxe', checkInDate: '2024-04-22', checkOutDate: '2024-04-24' }
-    ];
+    // Fetch reservations data from the API using Axios
+    function fetchReservations() {
+        axios.get('../API/get_reservations.php')
+            .then(response => {
+                generateReservationList(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching reservations:', error);
+            });
+    }
 
     // Function to display reservation details in modal
     function showReservationDetails(id) {
@@ -97,12 +102,12 @@ require_once '../API/db_connection.php';
         <p><strong>Check-in Date:</strong> ${reservation.checkInDate}</p>
         <p><strong>Check-out Date:</strong> ${reservation.checkOutDate}</p>
       `;
-        $('#reservationDetails').html(modalContent);
+        document.getElementById('reservationDetails').innerHTML = modalContent;
         $('#reservationModal').modal('show');
     }
 
     // Function to dynamically generate reservation list
-    function generateReservationList() {
+    function generateReservationList(reservations) {
         var listItems = '';
         reservations.forEach(reservation => {
             listItems += `
@@ -115,14 +120,13 @@ require_once '../API/db_connection.php';
           </a>
         `;
         });
-        $('#reservationList').html(listItems);
+        document.getElementById('reservationList').innerHTML = listItems;
     }
 
-    // Call function to generate reservation list on page load
-    $(document).ready(function() {
-        generateReservationList();
+    // Call function to fetch and generate reservation list on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchReservations();
     });
 </script>
 </body>
 </html>
-
