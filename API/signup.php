@@ -57,8 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WIT
 
     if (empty($username)) {
         trigger_error("Username eshte obligativ te plotesohet!", E_USER_ERROR);
+        exit();
     }elseif(strlen($username)<=3){
         trigger_error("Gjatesia e username duhet te jete me e madhe se 3. Shkruaj perseri.", E_USER_NOTICE);
+        exit();
     }
 
     if (empty($email)) {
