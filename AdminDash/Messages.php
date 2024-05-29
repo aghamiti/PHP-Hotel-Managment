@@ -1,9 +1,27 @@
 <?php
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
+require_once '../API/db_connection.php';
 ?>
 
 <!DOCTYPE html>
+<style>
+    #sendBTN {
+    padding: 12px 32px;
+    background-color: #8f859e;
+    border-color: #8f859e;
+    color: #fff;
+    transition: all ease-in 0.3s;
+}
+
+ #sendBTN:hover{
+    background-color: transparent;
+    color: #8f859e;
+} 
+</style>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,9 +45,12 @@
         <li><a href="./Reservations.php">Reservations</a></li>
         <li><a href="./rooms.html">Rooms</a></li>
     </ul>
-    <a href="../ClientSide/login-signup.php">
-        <img src="../assets/images/login-icon.png" alt="login-icon">
-    </a>
+    <?php if(isset($_SESSION['login_user'])): ?>
+        <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
+        <h7><a href="../API/logout.php"><img src="../assets/images/login-icon.png" alt="login-icon"></a></h7>
+    <?php else: ?>
+        <h7><a href="../ClientSide/login-signup.php"><img src="../assets/images/login-icon.png" alt="login-icon"></a></h7>
+    <?php endif; ?>
 </nav>
 
 <header class="header">
@@ -58,7 +79,7 @@
                 <label for="message">Message:</label>
                 <textarea class="form-control" id="message" rows="3" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary" id="sendBTN">Send</button>
         </form>
     </div>
 </div>

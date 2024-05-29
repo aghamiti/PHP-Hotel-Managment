@@ -4,10 +4,29 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Function to generate the static calendar for a given month and year
-function generateStaticCalendar($month, $year) {
+require_once '../API/db_connection.php';
+
+// Function to generate the static calendar for a given month, year, and room ID
+function generateStaticCalendar(&$month, &$year, &$roomID, &$conn) {
     $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $firstDayOfWeek = date('w', strtotime("$year-$month-01"));
+
+    // Fetch bookings for the selected room and month
+    $bookedDates = [];
+    $query = "SELECT CheckInDate, CheckOutDate FROM Bookings WHERE RoomID = ? AND (YEAR(CheckInDate) = ? AND MONTH(CheckInDate) = ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('iii', $roomID, $year, $month);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $checkIn = new DateTime($row['CheckInDate']);
+        $checkOut = new DateTime($row['CheckOutDate']);
+        $period = new DatePeriod($checkIn, new DateInterval('P1D'), $checkOut->modify('+1 day'));
+        foreach ($period as $date) {
+            $bookedDates[] = $date->format('Y-m-d');
+        }
+    }
+    $stmt->close();
 
     echo '<table class="calendar-table">';
     echo '<tr>';
@@ -31,8 +50,10 @@ function generateStaticCalendar($month, $year) {
         if (($firstDayOfWeek + $day - 1) % 7 == 0 && $day > 1) {
             echo '</tr><tr>'; // New row for each week
         }
-        $dayOfWeek = date('D', strtotime("$year-$month-$day"));
-        echo "<td class='day-cell' title='Day $day'>$day<br><small>$dayOfWeek</small></td>";
+        $currentDate = "$year-$month-$day";
+        $dayOfWeek = date('D', strtotime($currentDate));
+        $class = in_array($currentDate, $bookedDates) ? 'day-cell booked' : 'day-cell';
+        echo "<td class='$class' title='Day $day'>$day<br><small>$dayOfWeek</small></td>";
     }
 
     // Fill empty cells after the last day to complete the row
@@ -72,7 +93,17 @@ if ($sortOrder === 'desc') {
 // Determine the selected month and year
 $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
 
+// Fetch the list of rooms from the database
+$rooms = [];
+$query = "SELECT RoomID, RoomNumber FROM rooms";
+$result = $conn->query($query);
+while ($row = $result->fetch_assoc()) {
+    $rooms[] = $row;
+}
+$selectedRoom = isset($_GET['room']) ? $_GET['room'] : $rooms[0]['RoomID'];
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,6 +113,12 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     <title>Spring Hotel | Calendar | Admin</title>
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../css/AdminDash/Calendar.css">
+    <style>
+        .booked {
+            text-decoration: line-through;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="logoja">
@@ -98,9 +135,9 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
     </ul>
     <?php if(isset($_SESSION['login_user'])): ?>
         <h7>Welcome, <?php echo htmlspecialchars($_SESSION['login_user']); ?></h7>
-        <h7><a href="../API/logout.php">Logout</a></h7>
+        <h7><a href="../API/logout.php"><img src="../assets/images/login-icon.png" alt="login-icon"></a></h7>
     <?php else: ?>
-        <h7><a href="../ClientSide/login-signup.php">Login / Signup</a></h7>
+        <h7><a href="../ClientSide/login-signup.php"><img src="../assets/images/login-icon.png" alt="login-icon"></a></h7>
     <?php endif; ?>
 </nav>
 
@@ -138,6 +175,30 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
             ?>
         </select>
 
+        <label for="roomSelection" class="form-label mt-3">Select Room:</label>
+        <select
+                name="room"
+                id="roomSelection"
+                class="form-select form-select-sm"
+                style="
+                width: 250px;
+                font-size: 20px;
+                font-family: Poppins;
+                text-align: center;
+                display: inline-block;
+                background-color: transparent;
+                border-color: #8f859e;
+                border-radius: 0.25rem;"
+                onchange="this.form.submit()"
+        >
+            <?php
+            foreach ($rooms as $room) {
+                $selected = ($room['RoomID'] == $selectedRoom) ? 'selected' : '';
+                echo "<option value='{$room['RoomID']}' {$selected}>Room {$room['RoomNumber']}</option>";
+            }
+            ?>
+        </select>
+
         <div style="margin-top: 20px" class="mb-2">
             <label class="form-check-label">Sort Months:</label>
         </div>
@@ -165,13 +226,12 @@ $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
         </div>
     </form>
 
-    <!-- Generate the calendar for the selected month -->
+    <!-- Generate the calendar for the selected month and room -->
     <?php
     list($year, $month) = explode('-', $selectedMonth);
-    generateStaticCalendar($month, $year);
+    generateStaticCalendar($month, $year, $selectedRoom, $conn);
     ?>
 </div>
-
 
 <footer>
     <div class="row footer-main">
