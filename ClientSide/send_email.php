@@ -44,7 +44,7 @@ if (isset($_POST["send"])) {
             document.location.href = 'index.php';
         </script>";
     } catch (Exception $e) {
-        // Log the error or handle it more gracefully
+        // Logimi i error-it per gjetje me te lehte
         echo "
         <script>
             alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');
