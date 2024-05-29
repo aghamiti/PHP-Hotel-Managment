@@ -15,7 +15,6 @@
     <title>Spring Hotel | Contact</title>
     <link rel="stylesheet" href="../assets/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/ClientSide/Contacts.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
@@ -52,7 +51,7 @@
         question about our services. We would be pleased to <br>
         answer your questions.
     </p>
-    <form id="censorForm" method="POST" action="">
+    <form id="censorForm" method="POST" action="send_email.php">
     <input type="text" id="name" name="name" placeholder="Your full name" required>
     <input type="tel" name="numbers" id="phone" placeholder="Phone" required>
     <textarea name="message" id="textarea" cols="30" rows="10" placeholder="Your message" required></textarea>
